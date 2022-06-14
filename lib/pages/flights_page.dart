@@ -1,49 +1,44 @@
 import "package:flutter/material.dart";
+import 'package:get/get.dart';
+
+import '../widgets/item_card.dart';
+import '../widgets/texts.dart';
+import '../widgets/toolbar.dart';
 
 class FlightsPage extends StatelessWidget {
   const FlightsPage({Key? key}) : super(key: key);
   Widget itemsList() {
-    return Container(
-        decoration:
-            BoxDecoration(border: Border.all(color: Colors.blue, width: 4)),
-        height: 450,
-        width: 750,
-        padding: const EdgeInsets.all(5),
+    return Expanded(
+      child: Container(
+        padding: const EdgeInsets.all(10),
         child: ListView.builder(
-          itemCount: 100,
+          primary: false,
+          itemCount: 5,
           itemBuilder: (ctx, int index) {
-            return Card(
-                color: Colors.blue,
-                child: ListTile(
-                  title: const Text("hello",
-                      style: TextStyle(color: Colors.white)),
-                  onTap: () {},
-                ));
+            return const ItemCard(title: "hello", subtitle: "hello");
           },
-        ));
-  }
-
-  Widget pageTitle(String title) {
-    return Text(
-      title,
-      style: const TextStyle(
-          fontSize: 50,
-          fontWeight: FontWeight.bold,
-          color: Colors.blue,
-          fontFamily: "lato"),
+        ),
+      ),
     );
   }
 
-  Widget searchButton() {
+  Widget changeCityButton() {
     return IconButton(
-        splashRadius: 25,
-        splashColor: Colors.blueAccent,
-        onPressed: () {},
-        icon: const Icon(Icons.search));
+      splashRadius: 25,
+      splashColor: Colors.blueAccent,
+      onPressed: () {},
+      icon: const Icon(Icons.location_on),
+      color: Colors.blue,
+    );
   }
 
-  Widget changeTimeButton() {
-    return ElevatedButton(onPressed: () {}, child: const Text("Change Time"));
+  Widget addFlight() {
+    return IconButton(
+        color: Colors.blue,
+        onPressed: () {
+          Get.toNamed("/addFlightPage");
+        },
+        icon: Icon(Icons.add));
   }
 
   Widget changeOrderButton() {
@@ -54,31 +49,55 @@ class FlightsPage extends StatelessWidget {
         icon: const Icon(Icons.sort, color: Colors.blue));
   }
 
+  Widget toolbarMenu(BuildContext context) {
+    return Toolbar(
+        buttons: [changeCityButton(), addFlight()],
+        endButton: changeOrderButton());
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 100, vertical: 50),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Expanded(
+          child: Stack(
+        fit: StackFit.expand,
         children: [
-          pageTitle("Flights"),
-          const SizedBox(
-            height: 50,
-          ),
-          Container(
-            margin: const EdgeInsets.only(bottom: 10),
-            width: 750,
-            child: Row(children: [
-              searchButton(),
-              const SizedBox(width: 10),
-              changeTimeButton(),
-              const SizedBox(width: 540),
-              changeOrderButton()
-            ]),
-          ),
-          itemsList()
+          Padding(
+            padding: const EdgeInsets.only(bottom: 10),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Texts.pageTitle("Flights"),
+                      Texts.timeText(),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          )
         ],
-      ),
-    );
+      )),
+      Expanded(
+          child: Padding(
+        padding: const EdgeInsets.all(0),
+        child: Column(
+          children: [
+            toolbarMenu(context),
+            const Divider(
+              height: 5,
+              color: Colors.blue,
+              thickness: 2,
+            ),
+            itemsList()
+          ],
+        ),
+      ))
+    ]);
   }
 }

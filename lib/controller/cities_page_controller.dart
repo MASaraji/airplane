@@ -2,19 +2,18 @@ import 'package:airplane/controller/cities_controller.dart';
 import 'package:get/get.dart';
 
 class CitiesPageController extends GetxController {
-  bool showSearchBox = false;
-  List cities = CitiesController.getCities();
+  var showSearchBox = false.obs;
+  var cities = CitiesController.getCities().obs;
+
   void changeSearchBoxMode() {
-    showSearchBox = !showSearchBox;
-    update();
+    showSearchBox.value = !showSearchBox.value;
   }
 
   void getCities([String pattern = ""]) {
     if (pattern == "") {
-      cities = CitiesController.getCities();
+      cities.value = CitiesController.getCities();
     } else {
-      cities = CitiesController.getCities(pattern);
+      cities.value = CitiesController.getCities(pattern);
     }
-    update();
   }
 }

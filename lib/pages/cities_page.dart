@@ -1,4 +1,3 @@
-import 'package:airplane/controller/cities_controller.dart';
 import 'package:airplane/controller/cities_page_controller.dart';
 import 'package:airplane/widgets/toolbar.dart';
 import "package:flutter/material.dart";
@@ -63,7 +62,7 @@ class CitiesPage extends GetView<CitiesPageController> {
       onChanged: (pattern) {
         controller.getCities(pattern);
       },
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
           border: OutlineInputBorder(),
           labelText: "Search",
           floatingLabelBehavior: FloatingLabelBehavior.never),
@@ -72,11 +71,12 @@ class CitiesPage extends GetView<CitiesPageController> {
 
   Widget searchBoxAnimation() {
     return AnimatedContainer(
-        width: controller.showSearchBox ? 300 : 0,
+        width: controller.showSearchBox.value ? 300 : 0,
         margin: const EdgeInsets.symmetric(vertical: 5),
         duration: const Duration(milliseconds: 500),
-        child:
-            !controller.showSearchBox ? const SizedBox.shrink() : searchBox());
+        child: !controller.showSearchBox.value
+            ? const SizedBox.shrink()
+            : searchBox());
   }
 
   Widget toolbarMenu() {
@@ -119,14 +119,13 @@ class CitiesPage extends GetView<CitiesPageController> {
       Expanded(
         child: Column(
           children: [
-            GetBuilder<CitiesPageController>(
-                init: controller, builder: (ctx) => toolbarMenu()),
+            Obx(toolbarMenu),
             const Divider(
               height: 5,
               color: Colors.blue,
               thickness: 2,
             ),
-            GetBuilder(init: controller, builder: (ctx) => itemsList())
+            Obx(itemsList)
           ],
         ),
       )

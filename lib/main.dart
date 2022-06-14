@@ -1,5 +1,6 @@
 import 'package:airplane/pages/add_airplane_page.dart';
 import 'package:airplane/pages/add_city_page.dart';
+import 'package:airplane/pages/add_flight_page.dart';
 import 'package:airplane/pages/home_page.dart';
 import 'package:airplane/pages/welcome_page.dart';
 import "package:flutter/material.dart";
@@ -20,5 +21,6 @@ List<GetPage> routes = [
   GetPage(name: "/", page: () => const WelcomePage()),
   GetPage(name: "/mainPage", page: () => HomePage()),
   GetPage(name: "/addAirplanePage", page: () => AddAirplanePage()),
-  GetPage(name: "/addCityPage", page: () => AddCityPage())
+  GetPage(name: "/addCityPage", page: () => AddCityPage()),
+  GetPage(name: "/addFlightPage", page: () => AddFlightPage())
 ];
