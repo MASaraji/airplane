@@ -38,7 +38,7 @@ class FlightsPage extends StatelessWidget {
         onPressed: () {
           Get.toNamed("/addFlightPage");
         },
-        icon: Icon(Icons.add));
+        icon: const Icon(Icons.add));
   }
 
   Widget changeOrderButton() {

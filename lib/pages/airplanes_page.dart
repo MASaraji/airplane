@@ -16,6 +16,7 @@ class AirplanesPage extends GetView<MainPageController> {
       child: Container(
         padding: const EdgeInsets.all(10),
         child: ListView.builder(
+          primary: false,
           itemCount: AirplaneController.getNumAirplane(),
           itemBuilder: (ctx, int index) {
             Airplane airplane = AirplaneController.getAirplane(index);
@@ -23,16 +24,6 @@ class AirplanesPage extends GetView<MainPageController> {
           },
         ),
       ),
-    );
-  }
-
-  Widget searchButton() {
-    return IconButton(
-      splashRadius: 25,
-      splashColor: Colors.blueAccent,
-      onPressed: () {},
-      icon: const Icon(Icons.search),
-      color: Colors.blue,
     );
   }
 
@@ -61,8 +52,7 @@ class AirplanesPage extends GetView<MainPageController> {
 
   Widget toolbarMenu() {
     return Toolbar(
-        buttons: [searchButton(), addAirplaneButton()],
-        endButton: changeOrderButton());
+        buttons: [addAirplaneButton()], endButton: changeOrderButton());
   }
 
   @override

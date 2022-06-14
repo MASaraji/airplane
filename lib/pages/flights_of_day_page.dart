@@ -12,9 +12,8 @@ class FlightsOfDayPage extends GetView<MainPageController> {
     return Expanded(
       child: Container(
         padding: const EdgeInsets.all(10),
-        //  decoration:
-        //    BoxDecoration(border: Border.all(color: Colors.blue, width: 5)),
         child: ListView.builder(
+          primary: false,
           itemCount: 5,
           itemBuilder: (ctx, int index) {
             return const ItemCard(title: "hello", subtitle: "hello");
@@ -32,16 +31,6 @@ class FlightsOfDayPage extends GetView<MainPageController> {
           fontWeight: FontWeight.bold,
           color: Colors.white,
           fontFamily: "lato"),
-    );
-  }
-
-  Widget searchButton() {
-    return IconButton(
-      splashRadius: 25,
-      splashColor: Colors.blueAccent,
-      onPressed: () {},
-      icon: const Icon(Icons.search),
-      color: Colors.blue,
     );
   }
 
@@ -69,8 +58,7 @@ class FlightsOfDayPage extends GetView<MainPageController> {
 
   Widget toolbarMenu(BuildContext context) {
     return Toolbar(
-        buttons: [searchButton(), changeTimeButton(context)],
-        endButton: changeOrderButton());
+        buttons: [changeTimeButton(context)], endButton: changeOrderButton());
   }
 
   @override

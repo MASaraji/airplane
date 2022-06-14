@@ -15,7 +15,7 @@ class MainPageController extends GetxController {
     ,
     const FlightsPage(), //page 1
     const AirplanesPage(), //page 2
-    CitiesPage() //page 3
+    const CitiesPage() //page 3
     ,
   ];
 

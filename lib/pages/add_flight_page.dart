@@ -1,12 +1,12 @@
 import "package:flutter/material.dart";
 
-import '../widgets/snackbar.dart';
-
 class AddFlightPage extends StatelessWidget {
+  const AddFlightPage({Key? key}) : super(key: key);
+
   AppBar appbar() {
     return AppBar(
       centerTitle: true,
-      title: Text("Add Flight"),
+      title: const Text("Add Flight"),
     );
   }
 
@@ -20,8 +20,8 @@ class AddFlightPage extends StatelessWidget {
     return TextFormField(
         textInputAction: TextInputAction.next,
         autovalidateMode: AutovalidateMode.onUserInteraction,
-        decoration:
-            InputDecoration(border: OutlineInputBorder(), labelText: "Price"));
+        decoration: const InputDecoration(
+            border: OutlineInputBorder(), labelText: "Price"));
   }
 
   Widget cityNameInput() {
@@ -48,13 +48,13 @@ class AddFlightPage extends StatelessWidget {
       onPressed: () {
         showTimePicker(context: ctx, initialTime: TimeOfDay.now());
       },
-      child: Text("Depart Time"),
+      child: const Text("Depart Time"),
     );
   }
 
   Widget arrivalTimeInput(BuildContext ctx) {
     return ElevatedButton(
-      child: Text("Arrival Time"),
+      child: const Text("Arrival Time"),
       onPressed: () {
         showTimePicker(context: ctx, initialTime: TimeOfDay.now());
       },
@@ -62,15 +62,15 @@ class AddFlightPage extends StatelessWidget {
   }
 
   Widget airplaneDropBox() {
-    return DropdownButton(items: [], onChanged: null);
+    return DropdownButton(items: const [], onChanged: null);
   }
 
   Widget originCityDropBox() {
-    return DropdownButton(items: [], onChanged: null);
+    return DropdownButton(items: const [], onChanged: null);
   }
 
   Widget destinationCityDropBox() {
-    return DropdownButton(items: [], onChanged: null);
+    return DropdownButton(items: const [], onChanged: null);
   }
 
   @override
