@@ -1,9 +1,12 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 class ItemCard extends StatelessWidget {
   final String title;
   final String subtitle;
-  const ItemCard({Key? key, this.title = "", this.subtitle = ""})
+  VoidCallback? onTap;
+  ItemCard({Key? key, this.title = "", this.subtitle = "", this.onTap})
       : super(key: key);
 
   @override
@@ -20,7 +23,7 @@ class ItemCard extends StatelessWidget {
         subtitle: Text(subtitle),
         title: Text(title,
             style: const TextStyle(color: Colors.blue, fontSize: 23)),
-        onTap: () {},
+        onTap: onTap ?? () {},
       ),
     );
   }

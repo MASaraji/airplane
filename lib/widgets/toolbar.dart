@@ -8,9 +8,12 @@ class Toolbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-      Row(children: buttons),
-      endButton,
-    ]);
+    return Container(
+      color: Colors.white,
+      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        Row(children: buttons),
+        endButton,
+      ]),
+    );
   }
 }

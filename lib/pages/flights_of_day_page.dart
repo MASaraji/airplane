@@ -8,16 +8,24 @@ import '../widgets/texts.dart';
 
 class FlightsOfDayPage extends GetView<MainPageController> {
   const FlightsOfDayPage({Key? key}) : super(key: key);
+
   Widget itemsList() {
     return Expanded(
-      child: Container(
-        padding: const EdgeInsets.all(10),
-        child: ListView.builder(
-          primary: false,
-          itemCount: 5,
-          itemBuilder: (ctx, int index) {
-            return const ItemCard(title: "hello", subtitle: "hello");
-          },
+      child: Card(
+        elevation: 10,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+            side: BorderSide(color: Colors.blue.withOpacity(.5), width: 2)),
+        child: Container(
+          color: Colors.white,
+          padding: const EdgeInsets.all(10),
+          child: ListView.builder(
+            primary: false,
+            itemCount: 5,
+            itemBuilder: (ctx, int index) {
+              return ItemCard(title: "hello", subtitle: "hello");
+            },
+          ),
         ),
       ),
     );
@@ -57,8 +65,29 @@ class FlightsOfDayPage extends GetView<MainPageController> {
   }
 
   Widget toolbarMenu(BuildContext context) {
-    return Toolbar(
-        buttons: [changeTimeButton(context)], endButton: changeOrderButton());
+    return Card(
+      elevation: 10,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+          side: BorderSide(color: Colors.blue.withOpacity(.5), width: 2)),
+      child: Toolbar(
+          buttons: [changeTimeButton(context)], endButton: changeOrderButton()),
+    );
+  }
+
+  Widget backgroundImage() {
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+        side: BorderSide(color: Colors.blue.withOpacity(.5), width: 2),
+      ),
+      elevation: 10,
+      child: ClipRRect(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+          child: Image.network(
+              "https://cdn.dribbble.com/users/2146089/screenshots/6237820/preview_4x.png",
+              fit: BoxFit.cover)),
+    );
   }
 
   @override
@@ -70,12 +99,7 @@ class FlightsOfDayPage extends GetView<MainPageController> {
         children: [
           GetBuilder<MainPageController>(
               init: controller,
-              builder: (ctx) => Positioned.fill(
-                  child: Image.network(
-                      "https://cdn.dribbble.com/users/2146089/screenshots/6237820/preview_4x.png",
-                      fit: controller.showDrawer == true
-                          ? BoxFit.cover
-                          : BoxFit.fitWidth))),
+              builder: (ctx) => Positioned.fill(child: backgroundImage())),
           Padding(
             padding: const EdgeInsets.only(bottom: 10),
             child: Column(
@@ -101,15 +125,7 @@ class FlightsOfDayPage extends GetView<MainPageController> {
           child: Padding(
         padding: const EdgeInsets.all(0),
         child: Column(
-          children: [
-            toolbarMenu(context),
-            const Divider(
-              height: 5,
-              color: Colors.blue,
-              thickness: 2,
-            ),
-            itemsList()
-          ],
+          children: [toolbarMenu(context), itemsList()],
         ),
       ))
     ]);

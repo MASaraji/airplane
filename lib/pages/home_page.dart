@@ -8,9 +8,16 @@ class HomePage extends GetView<MainPageController> {
 
   Widget drawerButton(String title, IconData icon, int pageNumber) {
     return ListTile(
-      contentPadding: const EdgeInsets.symmetric(horizontal: 60, vertical: 10),
+      hoverColor: Colors.transparent,
+      selected: pageNumber == controller.selectedPage,
+      selectedTileColor: Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15),
+      ),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
       leading: Icon(icon),
-      title: Text(title, style: const TextStyle(fontSize: 20)),
+      title: Text(title,
+          style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w500)),
       textColor: Colors.white,
       iconColor: Colors.white,
       style: ListTileStyle.drawer,
@@ -19,7 +26,7 @@ class HomePage extends GetView<MainPageController> {
   }
 
   Widget avatar() {
-    return const CircleAvatar(
+    return CircleAvatar(
         radius: 70,
         backgroundColor: Colors.white,
         child: Icon(
@@ -34,30 +41,41 @@ class HomePage extends GetView<MainPageController> {
     ["Flights", Icons.airlines_rounded, 1],
     ["Airplanes", Icons.airplanemode_active_rounded, 2],
     ["Cities", Icons.location_city_outlined, 3],
-    ["Add Ticket", Icons.airplane_ticket_rounded, 3],
-    ["", Icons.more_horiz_rounded, 3]
+    ["Add Ticket", Icons.airplane_ticket_rounded, 4],
+    ["", Icons.more_horiz_rounded, 5]
   ];
 
   Widget mainDrawer() {
-    return Visibility(
-      visible: controller.showDrawer,
-      child: Drawer(
-        backgroundColor: Colors.blue,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const SizedBox(height: 50),
-            avatar(),
-            const SizedBox(height: 70),
-            Expanded(
-              child: ListView.builder(
-                  itemBuilder: ((context, index) => drawerButton(
-                      menuItems[index][0],
-                      menuItems[index][1],
-                      menuItems[index][2])),
-                  itemCount: menuItems.length),
-            ),
-          ],
+    return Expanded(
+      flex: 3,
+      child: Container(
+        margin: EdgeInsets.all(10),
+        child: Card(
+          color: Colors.blue,
+          elevation: 10,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+              side: BorderSide(color: Colors.blue.withOpacity(.5), width: 2)),
+          //backgroundColor: Colors.blue,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SizedBox(height: 50),
+              avatar(),
+              const SizedBox(height: 70),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListView.builder(
+                      itemBuilder: ((context, index) => drawerButton(
+                          menuItems[index][0],
+                          menuItems[index][1],
+                          menuItems[index][2])),
+                      itemCount: menuItems.length),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -71,7 +89,7 @@ class HomePage extends GetView<MainPageController> {
   Widget bodyPage() {
     return Expanded(
         child: Container(
-            color: const Color.fromARGB(255, 243, 243, 243),
+            color: Colors.white, // const Color.fromARGB(255, 243, 243, 243),
             child: controller.currentPage));
   }
 
@@ -84,7 +102,14 @@ class HomePage extends GetView<MainPageController> {
           GetBuilder<MainPageController>(
               init: controller, builder: (ctx) => mainDrawer()),
           GetBuilder<MainPageController>(
-              init: controller, builder: (ctx) => bodyPage())
+              init: controller,
+              builder: (ctx) => Expanded(
+                  flex: 8,
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.only(top: 8.0, bottom: 8, right: 8),
+                    child: bodyPage(),
+                  )))
         ]));
   }
 }

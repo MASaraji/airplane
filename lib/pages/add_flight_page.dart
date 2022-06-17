@@ -1,4 +1,7 @@
+import 'package:airplane/controller/airplane_controller.dart';
 import "package:flutter/material.dart";
+
+import '../controller/cities_controller.dart';
 
 class AddFlightPage extends StatelessWidget {
   const AddFlightPage({Key? key}) : super(key: key);
@@ -44,33 +47,53 @@ class AddFlightPage extends StatelessWidget {
   }
 
   Widget departTimeInput(BuildContext ctx) {
-    return ElevatedButton(
-      onPressed: () {
+    return TextField(
+      readOnly: true,
+      decoration: InputDecoration(
+          border: OutlineInputBorder(), label: Text("Depart Time")),
+      onTap: () {
         showTimePicker(context: ctx, initialTime: TimeOfDay.now());
       },
-      child: const Text("Depart Time"),
     );
   }
 
   Widget arrivalTimeInput(BuildContext ctx) {
-    return ElevatedButton(
-      child: const Text("Arrival Time"),
-      onPressed: () {
+    return TextField(
+      readOnly: true,
+      decoration: InputDecoration(
+          border: OutlineInputBorder(), label: Text("Arrival Time")),
+      onTap: () {
         showTimePicker(context: ctx, initialTime: TimeOfDay.now());
       },
     );
   }
 
   Widget airplaneDropBox() {
-    return DropdownButton(items: const [], onChanged: null);
+    return DropdownButton(
+        items: AirplaneController.airplanes.values
+            .toList()
+            .map((e) => DropdownMenuItem(child: Text(e.name), value: e.model))
+            .toList(),
+        onChanged: (text) => print(text),
+        hint: Text("Airplane"));
   }
 
   Widget originCityDropBox() {
-    return DropdownButton(items: const [], onChanged: null);
+    return DropdownButton(
+        items: CitiesController.getCities()
+            .map((e) => DropdownMenuItem(child: Text(e.name), value: e.name))
+            .toList(),
+        onChanged: (text) => print(text),
+        hint: Text("Origin City"));
   }
 
   Widget destinationCityDropBox() {
-    return DropdownButton(items: const [], onChanged: null);
+    return DropdownButton(
+        items: CitiesController.getCities()
+            .map((e) => DropdownMenuItem(child: Text(e.name), value: e.name))
+            .toList(),
+        onChanged: (text) => print(text),
+        hint: Text("Destination City"));
   }
 
   @override
@@ -86,11 +109,21 @@ class AddFlightPage extends StatelessWidget {
                       const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                   child: Column(children: [
                     priceInput(),
-                    departTimeInput(context),
-                    arrivalTimeInput(context),
-                    airplaneDropBox(),
-                    originCityDropBox(),
-                    destinationCityDropBox()
+                    SizedBox(height: 20),
+                    Row(children: [
+                      Expanded(flex: 10, child: departTimeInput(context)),
+                      Spacer(flex: 1),
+                      Expanded(flex: 10, child: arrivalTimeInput(context)),
+                    ]),
+                    SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        airplaneDropBox(),
+                        originCityDropBox(),
+                        destinationCityDropBox()
+                      ],
+                    )
                   ])),
               SizedBox(width: 150, height: 50, child: addButton()),
             ],

@@ -1,5 +1,8 @@
+import 'dart:ui';
+
 import 'package:airplane/controller/cities_page_controller.dart';
 import 'package:airplane/widgets/toolbar.dart';
+import 'package:analog_clock/analog_clock.dart';
 import "package:flutter/material.dart";
 import 'package:get/get.dart';
 
@@ -12,15 +15,22 @@ class CitiesPage extends GetView<CitiesPageController> {
   Widget itemsList() {
     List cities = controller.cities;
     return Expanded(
-      child: Container(
-        padding: const EdgeInsets.all(10),
-        child: ListView.builder(
-          primary: false,
-          itemCount: cities.length,
-          itemBuilder: (ctx, int index) {
-            City city = cities[index];
-            return ItemCard(title: city.name, subtitle: city.country);
-          },
+      child: Card(
+        elevation: 10,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+            side: BorderSide(color: Colors.blue.withOpacity(.5), width: 2)),
+        child: Container(
+          color: Colors.white,
+          padding: const EdgeInsets.all(10),
+          child: ListView.builder(
+            primary: false,
+            itemCount: cities.length,
+            itemBuilder: (ctx, int index) {
+              City city = cities[index];
+              return ItemCard(title: city.name, subtitle: city.country);
+            },
+          ),
         ),
       ),
     );
@@ -53,7 +63,18 @@ class CitiesPage extends GetView<CitiesPageController> {
     return IconButton(
         splashRadius: 25,
         splashColor: Colors.blueAccent,
-        onPressed: () {},
+        onPressed: () {
+          Get.dialog(AlertDialog(
+            title: Text("Change Order"),
+            contentPadding: EdgeInsets.zero,
+            content: Column(mainAxisSize: MainAxisSize.min, children: [
+              for (var i = 1; i <= 3; i++)
+                ListTile(
+                    leading: Radio(value: i, groupValue: 1, onChanged: (_) {}),
+                    title: Text("option $i"))
+            ]),
+          ));
+        },
         icon: const Icon(Icons.sort, color: Colors.blue));
   }
 
@@ -80,55 +101,104 @@ class CitiesPage extends GetView<CitiesPageController> {
   }
 
   Widget toolbarMenu() {
-    return Toolbar(
-        buttons: [searchButton(), searchBoxAnimation(), addCityButton()],
-        endButton: changeOrderButton());
+    return Card(
+      elevation: 10,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+          side: BorderSide(color: Colors.blue.withOpacity(.5), width: 2)),
+      child: Toolbar(
+          buttons: [searchButton(), searchBoxAnimation(), addCityButton()],
+          endButton: changeOrderButton()),
+    );
   }
 
   Widget decorationPage() {
     return Expanded(
+        flex: 4,
         child: Stack(
-      fit: StackFit.expand,
-      children: [
-        backgroundImage(),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Texts.pageTitle("Cities"),
-              Texts.timeText(),
-            ],
-          ),
-        ),
-      ],
-    ));
+          fit: StackFit.expand,
+          children: [
+            backgroundImage(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Texts.pageTitle("Cities"),
+                  Texts.timeText(),
+                ],
+              ),
+            ),
+          ],
+        ));
   }
 
   Widget backgroundImage() {
     return Positioned.fill(
-        child:
-            Image.asset("assets/images/background_city.png", fit: BoxFit.fill));
+        child: Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      elevation: 10,
+      child: ClipRRect(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+          child: Image.asset("assets/images/background_city.png",
+              fit: BoxFit.fill)),
+    ));
+  }
+
+  Widget citiesNumberWidget() {
+    return Expanded(
+        flex: 1,
+        child: Card(
+            elevation: 10,
+            color: Colors.lightBlueAccent.shade700,
+            child: Stack(fit: StackFit.expand, children: [
+              Column(children: [
+                Texts.pageTitle("Cities", fontsize: 40),
+                Texts.pageTitle("${controller.cities.length}"),
+              ])
+            ])));
+  }
+
+  Widget clockWidget() {
+    return Expanded(
+        flex: 1,
+        child: Card(
+          elevation: 10,
+          color: Color.fromARGB(255, 107, 170, 241),
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              AnalogClock(
+                textScaleFactor: 1.5,
+                digitalClockColor: Colors.black,
+
+                tickColor: Colors.white,
+                // minuteHandColor: Colors.white,
+                // hourHandColor: Colors.white,
+                // numberColor: Colors.white,
+              )
+            ],
+          ),
+        ));
   }
 
   @override
   Widget build(BuildContext context) {
     Get.put(CitiesPageController());
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      decorationPage(),
       Expanded(
-        child: Column(
-          children: [
-            Obx(toolbarMenu),
-            const Divider(
-              height: 5,
-              color: Colors.blue,
-              thickness: 2,
-            ),
-            Obx(itemsList)
-          ],
-        ),
-      )
+          child: Row(children: [
+        decorationPage(),
+        Expanded(
+            flex: 1,
+            child: Column(children: [
+              citiesNumberWidget(),
+              clockWidget(),
+            ]))
+      ])),
+      Expanded(child: Column(children: [Obx(toolbarMenu), Obx(itemsList)])),
     ]);
   }
 }
