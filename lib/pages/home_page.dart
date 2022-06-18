@@ -26,7 +26,7 @@ class HomePage extends GetView<MainPageController> {
   }
 
   Widget avatar() {
-    return CircleAvatar(
+    return const CircleAvatar(
         radius: 70,
         backgroundColor: Colors.white,
         child: Icon(
@@ -49,7 +49,7 @@ class HomePage extends GetView<MainPageController> {
     return Expanded(
       flex: 3,
       child: Container(
-        margin: EdgeInsets.all(10),
+        margin: const EdgeInsets.all(10),
         child: Card(
           color: Colors.blue,
           elevation: 10,

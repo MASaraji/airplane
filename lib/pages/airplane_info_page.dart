@@ -10,6 +10,7 @@ class AirplaneInfoPage extends StatelessWidget {
 
   Widget itemsList() {
     return Expanded(
+      flex: 1,
       child: Card(
         elevation: 10,
         shape: RoundedRectangleBorder(
@@ -22,7 +23,7 @@ class AirplaneInfoPage extends StatelessWidget {
             primary: false,
             itemCount: 5,
             itemBuilder: (ctx, int index) {
-              return ItemCard(
+              return const ItemCard(
                 title: "hello",
                 subtitle: "hello",
               );
@@ -38,14 +39,16 @@ class AirplaneInfoPage extends StatelessWidget {
         controller: TextEditingController(text: airplane.name),
         readOnly: true,
         decoration:
-            InputDecoration(border: OutlineInputBorder(), label: Text("Name")));
+            // ignore: unnecessary_const
+            const InputDecoration(
+                border: OutlineInputBorder(), label: Text("Name")));
   }
 
   Widget airplaneModelBox() {
     return TextField(
         controller: TextEditingController(text: airplane.model),
         readOnly: true,
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
             border: OutlineInputBorder(), label: Text("Model")));
   }
 
@@ -53,13 +56,24 @@ class AirplaneInfoPage extends StatelessWidget {
     return TextField(
         controller: TextEditingController(text: airplane.capacity.toString()),
         readOnly: true,
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
             border: OutlineInputBorder(), label: Text("Capacity")));
   }
 
   Widget airplaneInfo() {
     return Column(
-      children: [airplaneNameBox(), airplaneModelBox(), airplaneCapacityBox()],
+      children: [
+        Expanded(flex: 1, child: airplaneNameBox()),
+        Expanded(
+            flex: 1,
+            child: Row(
+              children: [
+                Expanded(flex: 5, child: airplaneModelBox()),
+                const Spacer(flex: 1),
+                Expanded(flex: 5, child: airplaneCapacityBox())
+              ],
+            ))
+      ],
     );
   }
 
@@ -67,11 +81,16 @@ class AirplaneInfoPage extends StatelessWidget {
     return LineChart(
       LineChartData(lineTouchData: LineTouchData(enabled: true), lineBarsData: [
         LineChartBarData(
-          spots: [FlSpot(0, 1), FlSpot(1, 2), FlSpot(2, 3), FlSpot(3, 2)],
+          spots: [
+            const FlSpot(0, 1),
+            const FlSpot(1, 2),
+            const FlSpot(2, 3),
+            const FlSpot(3, 2)
+          ],
           isCurved: true,
         )
       ]),
-      swapAnimationDuration: Duration(milliseconds: 150),
+      swapAnimationDuration: const Duration(milliseconds: 150),
       swapAnimationCurve: Curves.linear,
     );
   }
@@ -82,11 +101,14 @@ class AirplaneInfoPage extends StatelessWidget {
         color: Colors.white,
         child: Column(
           children: [
-            airplaneInfo(),
+            Expanded(flex: 1, child: airplaneInfo()),
+            const SizedBox(height: 20),
             Expanded(
+              flex: 2,
               child: Row(children: [
                 itemsList(),
-                Expanded(child: AspectRatio(aspectRatio: 2, child: chart()))
+                Expanded(
+                    flex: 1, child: AspectRatio(aspectRatio: 2, child: chart()))
               ]),
             ),
           ],

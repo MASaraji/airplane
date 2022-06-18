@@ -21,6 +21,7 @@ class AddCityPage extends StatelessWidget {
 
   Widget cityNameInput() {
     return TextFormField(
+      autofocus: true,
       textInputAction: TextInputAction.next,
       controller: nameController,
       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -46,7 +47,7 @@ class AddCityPage extends StatelessWidget {
           } else {
             bool success = CitiesController.addCity(nameController.text);
             if (success == true) {
-              Get.toNamed("/mainPage");
+              Get.back();
             } else {
               Snackbar.snackbarError(
                   "City already exist. Please change city name.");

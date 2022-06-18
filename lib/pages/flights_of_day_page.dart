@@ -15,15 +15,17 @@ class FlightsOfDayPage extends GetView<MainPageController> {
         elevation: 10,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
-            side: BorderSide(color: Colors.blue.withOpacity(.5), width: 2)),
+            side: BorderSide(color: Colors.black.withOpacity(.2), width: 2)),
         child: Container(
-          color: Colors.white,
+          decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(Radius.circular(10))),
           padding: const EdgeInsets.all(10),
           child: ListView.builder(
             primary: false,
             itemCount: 5,
             itemBuilder: (ctx, int index) {
-              return ItemCard(title: "hello", subtitle: "hello");
+              return const ItemCard();
             },
           ),
         ),
@@ -44,46 +46,37 @@ class FlightsOfDayPage extends GetView<MainPageController> {
 
   Widget changeTimeButton(BuildContext context) {
     return IconButton(
-        onPressed: () async {
-          DateTime? pickedDate = await showDatePicker(
-              context: context,
-              initialDate: DateTime.now(),
-              firstDate: DateTime(2020),
-              lastDate: DateTime(2025));
-        },
-        tooltip: "",
-        icon: const Icon(Icons.calendar_today_rounded),
-        color: Colors.blue);
+      onPressed: () async {
+        DateTime? pickedDate = await showDatePicker(
+            context: context,
+            initialDate: DateTime.now(),
+            firstDate: DateTime(2020),
+            lastDate: DateTime(2025));
+      },
+      tooltip: "",
+      icon: const Icon(Icons.calendar_today_rounded),
+    );
   }
 
   Widget changeOrderButton() {
     return IconButton(
-        splashRadius: 25,
-        splashColor: Colors.blueAccent,
-        onPressed: () {},
-        icon: const Icon(Icons.sort, color: Colors.blue));
+        splashRadius: 25, onPressed: () {}, icon: const Icon(Icons.sort));
   }
 
   Widget toolbarMenu(BuildContext context) {
-    return Card(
-      elevation: 10,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-          side: BorderSide(color: Colors.blue.withOpacity(.5), width: 2)),
-      child: Toolbar(
-          buttons: [changeTimeButton(context)], endButton: changeOrderButton()),
-    );
+    return Toolbar(
+        buttons: [changeTimeButton(context)], endButton: changeOrderButton());
   }
 
   Widget backgroundImage() {
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
-        side: BorderSide(color: Colors.blue.withOpacity(.5), width: 2),
+        side: BorderSide(color: Colors.black.withOpacity(.2), width: 2),
       ),
       elevation: 10,
       child: ClipRRect(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
+          borderRadius: const BorderRadius.all(Radius.circular(20)),
           child: Image.network(
               "https://cdn.dribbble.com/users/2146089/screenshots/6237820/preview_4x.png",
               fit: BoxFit.cover)),

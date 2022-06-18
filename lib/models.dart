@@ -1,15 +1,19 @@
 class Flight {
+  final String flightName;
   final double price;
-  final String departureTime;
-  final String landingTime;
+  final DateTime departDate;
+  final DateTime departureTime;
+  final DateTime landingTime;
   final Airplane airplane;
   List<Ticket> tickets = [];
   final City originCity;
   final City destinationCity;
   Flight(
-      {required this.price,
+      {required this.flightName,
+      required this.price,
       required this.departureTime,
       required this.landingTime,
+      required this.departDate,
       required this.airplane,
       required this.originCity,
       required this.destinationCity});

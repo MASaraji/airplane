@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:airplane/controller/cities_page_controller.dart';
 import 'package:airplane/widgets/toolbar.dart';
 import 'package:analog_clock/analog_clock.dart';
@@ -12,6 +10,7 @@ import '../widgets/texts.dart';
 
 class CitiesPage extends GetView<CitiesPageController> {
   const CitiesPage({Key? key}) : super(key: key);
+
   Widget itemsList() {
     List cities = controller.cities;
     return Expanded(
@@ -19,9 +18,11 @@ class CitiesPage extends GetView<CitiesPageController> {
         elevation: 10,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
-            side: BorderSide(color: Colors.blue.withOpacity(.5), width: 2)),
+            side: BorderSide(color: Colors.black.withOpacity(.2), width: 2)),
         child: Container(
-          color: Colors.white,
+          decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(Radius.circular(12))),
           padding: const EdgeInsets.all(10),
           child: ListView.builder(
             primary: false,
@@ -39,50 +40,60 @@ class CitiesPage extends GetView<CitiesPageController> {
   Widget searchButton() {
     return IconButton(
       splashRadius: 25,
-      splashColor: Colors.blueAccent,
-      onPressed: () {
-        controller.changeSearchBoxMode();
-        controller.getCities();
-      },
+      tooltip: "Search",
+      onPressed: controller.changeSearchBoxMode,
       icon: const Icon(Icons.search),
-      color: Colors.blue,
     );
   }
 
   Widget addCityButton() {
     return IconButton(
-        onPressed: () async {
-          await Get.toNamed("/addCityPage");
-        },
-        tooltip: "Add city",
-        icon: const Icon(Icons.add),
-        color: Colors.blue);
+      splashRadius: 25,
+      onPressed: () =>
+          Get.toNamed("/addCityPage")?.then((_) => {controller.getCities()}),
+      tooltip: "Add city",
+      icon: const Icon(Icons.add),
+    );
+  }
+
+  Widget changeOrderDialog() {
+    return AlertDialog(
+      title: const Text("Change Order"),
+      contentPadding: EdgeInsets.zero,
+      content: Obx(
+        () => Column(mainAxisSize: MainAxisSize.min, children: [
+          ListTile(
+              leading: Radio(
+                  value: 1,
+                  groupValue: controller.sort.value,
+                  onChanged: (value) {
+                    controller.changeSort(1);
+                  }),
+              title: const Text("Ascending")),
+          ListTile(
+              leading: Radio(
+                  value: 2,
+                  groupValue: controller.sort.value,
+                  onChanged: (value) {
+                    controller.changeSort(2);
+                  }),
+              title: const Text("Descending"))
+        ]),
+      ),
+    );
   }
 
   Widget changeOrderButton() {
     return IconButton(
         splashRadius: 25,
-        splashColor: Colors.blueAccent,
-        onPressed: () {
-          Get.dialog(AlertDialog(
-            title: Text("Change Order"),
-            contentPadding: EdgeInsets.zero,
-            content: Column(mainAxisSize: MainAxisSize.min, children: [
-              for (var i = 1; i <= 3; i++)
-                ListTile(
-                    leading: Radio(value: i, groupValue: 1, onChanged: (_) {}),
-                    title: Text("option $i"))
-            ]),
-          ));
-        },
-        icon: const Icon(Icons.sort, color: Colors.blue));
+        tooltip: "Change Order",
+        onPressed: () => Get.dialog(changeOrderDialog()),
+        icon: const Icon(Icons.sort));
   }
 
   Widget searchBox() {
     return TextField(
-      onChanged: (pattern) {
-        controller.getCities(pattern);
-      },
+      onChanged: (pattern) => controller.getCities(pattern),
       decoration: const InputDecoration(
           border: OutlineInputBorder(),
           labelText: "Search",
@@ -101,15 +112,9 @@ class CitiesPage extends GetView<CitiesPageController> {
   }
 
   Widget toolbarMenu() {
-    return Card(
-      elevation: 10,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-          side: BorderSide(color: Colors.blue.withOpacity(.5), width: 2)),
-      child: Toolbar(
-          buttons: [searchButton(), searchBoxAnimation(), addCityButton()],
-          endButton: changeOrderButton()),
-    );
+    return Toolbar(
+        buttons: [searchButton(), searchBoxAnimation(), addCityButton()],
+        endButton: changeOrderButton());
   }
 
   Widget decorationPage() {
@@ -141,7 +146,7 @@ class CitiesPage extends GetView<CitiesPageController> {
       ),
       elevation: 10,
       child: ClipRRect(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
+          borderRadius: const BorderRadius.all(Radius.circular(20)),
           child: Image.asset("assets/images/background_city.png",
               fit: BoxFit.fill)),
     ));
@@ -166,18 +171,13 @@ class CitiesPage extends GetView<CitiesPageController> {
         flex: 1,
         child: Card(
           elevation: 10,
-          color: Color.fromARGB(255, 107, 170, 241),
+          color: const Color.fromARGB(255, 107, 170, 241),
           child: Stack(
             fit: StackFit.expand,
-            children: [
+            children: const [
               AnalogClock(
                 textScaleFactor: 1.5,
-                digitalClockColor: Colors.black,
-
                 tickColor: Colors.white,
-                // minuteHandColor: Colors.white,
-                // hourHandColor: Colors.white,
-                // numberColor: Colors.white,
               )
             ],
           ),
@@ -194,11 +194,12 @@ class CitiesPage extends GetView<CitiesPageController> {
         Expanded(
             flex: 1,
             child: Column(children: [
-              citiesNumberWidget(),
+              Obx(citiesNumberWidget),
               clockWidget(),
             ]))
       ])),
-      Expanded(child: Column(children: [Obx(toolbarMenu), Obx(itemsList)])),
+      Expanded(
+          child: Obx(() => Column(children: [toolbarMenu(), itemsList()]))),
     ]);
   }
 }

@@ -10,7 +10,7 @@ class FlightInformationPage extends StatelessWidget {
   Widget flightInformationPriceBox() {
     return TextField(
         controller: TextEditingController(text: flight.price.toString()),
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
             border: OutlineInputBorder(), label: Text("Price")));
   }
 
@@ -18,35 +18,35 @@ class FlightInformationPage extends StatelessWidget {
     return TextField(
         controller:
             TextEditingController(text: flight.departureTime.toString()),
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
             border: OutlineInputBorder(), label: Text("Depart Time")));
   }
 
   Widget flightInformationLandingTimeBox() {
     return TextField(
         controller: TextEditingController(text: flight.landingTime.toString()),
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
             border: OutlineInputBorder(), label: Text("Landing Time")));
   }
 
   Widget flightInformationAirplaneBox() {
     return TextField(
         controller: TextEditingController(text: flight.airplane.name),
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
             border: OutlineInputBorder(), label: Text("Airplane")));
   }
 
   Widget flightInformationOriginCityBox() {
     return TextField(
         controller: TextEditingController(text: flight.originCity.name),
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
             border: OutlineInputBorder(), label: Text("Origin City")));
   }
 
   Widget flightInformationDestinationCityBox() {
     return TextField(
         controller: TextEditingController(text: flight.destinationCity.name),
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
             border: OutlineInputBorder(), label: Text("Destination City")));
   }
 

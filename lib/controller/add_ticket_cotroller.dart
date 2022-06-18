@@ -1,12 +1,12 @@
 import '../models.dart';
 
-class add_ticket_controller {
-  static Flight? flight = null;
-  static DateTime? DepartTime = null;
-  static DateTime? ArrivalTime = null;
-  static Airplane? airplane = null;
-  static City? originCity = null;
-  static City? destinationCity = null;
-  static var cap = null;
-  static var soldedTicket = null;
+class AddTicketController {
+  static Flight? flight;
+  static DateTime? aepartTime;
+  static DateTime? arrivalTime;
+  static Airplane? airplane;
+  static City? originCity;
+  static City? destinationCity;
+  static int? capacity;
+  static int? soldedTicket;
 }

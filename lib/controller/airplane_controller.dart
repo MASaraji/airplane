@@ -18,6 +18,10 @@ class AirplaneController {
     return airplanes.length;
   }
 
+  static List getAirplanes() {
+    return airplanes.values.toList();
+  }
+
   static Airplane getAirplane(int index) {
     return airplanes.values.toList()[index];
   }

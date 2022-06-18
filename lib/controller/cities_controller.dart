@@ -1,7 +1,7 @@
 import '../models.dart';
 
 class CitiesController {
-  static Map<String, City> cities = {
+  static var cities = {
     "Tehran": City(name: "Tehran"),
     "Mashhad": City(name: "Mashhad")
   };
@@ -23,7 +23,7 @@ class CitiesController {
     return cities.length;
   }
 
-  static List getCitiesPattern(String pattern) {
+  static List<City> getCitiesPattern(String pattern) {
     List<City> result = [];
     for (var city in cities.values) {
       if (city.name.contains(pattern)) {
@@ -33,7 +33,7 @@ class CitiesController {
     return result;
   }
 
-  static List getCities([String pattern = ""]) {
+  static List<City> getCities([String pattern = ""]) {
     if (pattern == "") {
       return cities.values.toList();
     }
