@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:get/get.dart';
 
+import '../config.dart';
 import '../controller/main_page_controller.dart';
 
 class HomePage extends GetView<MainPageController> {
@@ -19,8 +20,8 @@ class HomePage extends GetView<MainPageController> {
       leading: Icon(icon),
       title: Text(title,
           style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w500)),
-      textColor: Colors.white,
-      iconColor: Colors.white,
+      textColor: Config.mainDrawerButtonColor,
+      iconColor: Config.mainDrawerButtonColor,
       style: ListTileStyle.drawer,
       onTap: () => controller.changePage(pageNumber),
     );
@@ -29,10 +30,10 @@ class HomePage extends GetView<MainPageController> {
   Widget avatar() {
     return const CircleAvatar(
         radius: 70,
-        backgroundColor: Colors.white,
+        backgroundColor: Config.mainDrawerButtonColor,
         child: Icon(
           Icons.face_unlock_rounded,
-          color: Colors.blue,
+          color: Config.mainDrawerColor,
           size: 100,
         ));
   }
@@ -52,11 +53,11 @@ class HomePage extends GetView<MainPageController> {
       child: Container(
         margin: const EdgeInsets.all(10),
         child: Card(
-          color: Colors.blue,
+          color: Config.mainDrawerColor,
           elevation: 10,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
-              side: BorderSide(color: Colors.blue.withOpacity(.5), width: 2)),
+              side: BorderSide(color: Colors.black.withOpacity(.2), width: 2)),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -99,11 +100,11 @@ class HomePage extends GetView<MainPageController> {
   Widget build(BuildContext context) {
     Get.put(MainPageController());
     return Scaffold(
-        floatingActionButton: mainFloatingActionButton(),
+        //  floatingActionButton: mainFloatingActionButton(),
         body: Row(children: [
-          GetBuilder(init: controller, builder: (ctx) => mainDrawer()),
-          GetBuilder<MainPageController>(
-              init: controller, builder: (ctx) => bodyPage())
-        ]));
+      GetBuilder(init: controller, builder: (ctx) => mainDrawer()),
+      GetBuilder<MainPageController>(
+          init: controller, builder: (ctx) => bodyPage())
+    ]));
   }
 }
