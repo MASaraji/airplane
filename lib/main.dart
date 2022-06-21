@@ -22,5 +22,5 @@ List<GetPage> routes = [
   GetPage(name: "/mainPage", page: () => HomePage()),
   GetPage(name: "/addAirplanePage", page: () => AddAirplanePage()),
   GetPage(name: "/addCityPage", page: () => AddCityPage()),
-  GetPage(name: "/addFlightPage", page: () => const AddFlightPage())
+  GetPage(name: "/addFlightPage", page: () => AddFlightPage())
 ];
