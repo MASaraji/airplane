@@ -2,6 +2,7 @@ import 'package:airplane/controller/airplane_controller.dart';
 import 'package:airplane/controller/flights_controller.dart';
 import "package:flutter/material.dart";
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../controller/add_flight_page_controller.dart';
 import '../controller/cities_controller.dart';
@@ -20,20 +21,23 @@ class AddFlightPage extends GetView<AddFlightPageController> {
   Widget addButton() {
     return ElevatedButton(
         onPressed: () {
-          DateTime departDate =
-              DateTime.parse(controller.departDateController.text);
           Flight flight = Flight(
-              flightName: FlightsController.lastAddedAirplane.toString(),
-              price: double.parse(controller.priceController.text),
-              departureTime:
-                  DateTime.parse(controller.departTimeController.text),
-              landingTime:
-                  DateTime.parse(controller.arrivalTimeController.text),
-              departDate: departDate,
-              airplane: controller.airplane,
-              originCity: controller.originCity,
-              destinationCity: controller.destinationCity);
-          FlightsController.addFlight(departDate, flight);
+            flightName: FlightsController.lastAddedAirplane.toString(),
+            price: controller.price,
+            departureTime: controller.departTime as TimeOfDay,
+            landingTime: controller.arrivalTime as TimeOfDay,
+            departDate: DateFormat(" EEEE, MM, yyyy")
+                .format(controller.departDate as DateTime),
+            airplane: controller.airplane,
+            originCity: controller.originCity,
+            destinationCity: controller.destinationCity,
+          );
+          FlightsController.addFlight(
+              DateFormat(" EEEE, MM, yyyy")
+                  .format(controller.departDate as DateTime),
+              flight);
+
+          Get.back();
         },
         child: const Text("Add", style: TextStyle(fontSize: 20)));
   }
@@ -82,10 +86,12 @@ class AddFlightPage extends GetView<AddFlightPageController> {
   }
 
   Widget airplaneDropBox() {
+    List airplane = AirplaneController.airplanes.values.toList();
     return DropdownButton(
-        items: AirplaneController.airplanes.values
-            .toList()
-            .map((e) => DropdownMenuItem(value: e.model, child: Text(e.name)))
+        value: airplane[0],
+        items: airplane
+            .map((airplane) =>
+                DropdownMenuItem(value: airplane, child: Text(airplane.name)))
             .toList(),
         onChanged: (value) {
           controller.airplane = value as Airplane;
@@ -95,26 +101,29 @@ class AddFlightPage extends GetView<AddFlightPageController> {
 
   Widget departDateInput(BuildContext ctx) {
     return TextField(
-      controller: controller.departDateController,
-      readOnly: true,
-      decoration: const InputDecoration(
-          // ignore: unnecessary_const
-          border: const OutlineInputBorder(),
-          label: Text("Depart Date")),
-      onTap: () {
-        showDatePicker(
-            context: ctx,
-            lastDate: DateTime.now().add(Duration(days: 365)),
-            firstDate: DateTime.now(),
-            initialDate: DateTime.now());
-      },
-    );
+        controller: controller.departDateController,
+        readOnly: true,
+        decoration: const InputDecoration(
+            // ignore: unnecessary_const
+            border: const OutlineInputBorder(),
+            label: Text("Depart Date")),
+        onTap: () async {
+          DateTime value = await showDatePicker(
+              context: ctx,
+              lastDate: DateTime.now().add(Duration(days: 365)),
+              firstDate: DateTime.now(),
+              initialDate: DateTime.now()) as DateTime;
+          controller.departDate = value;
+        });
   }
 
   Widget originCityDropBox() {
+    List cities = CitiesController.getCities();
     return DropdownButton(
-        items: CitiesController.getCities()
-            .map((e) => DropdownMenuItem(value: e.name, child: Text(e.name)))
+        value: cities[0],
+        items: cities
+            .map(
+                (city) => DropdownMenuItem(value: city, child: Text(city.name)))
             .toList(),
         onChanged: (value) {
           controller.originCity = value as City;
@@ -123,9 +132,12 @@ class AddFlightPage extends GetView<AddFlightPageController> {
   }
 
   Widget destinationCityDropBox() {
+    List cities = CitiesController.getCities();
     return DropdownButton(
-        items: CitiesController.getCities()
-            .map((e) => DropdownMenuItem(value: e.name, child: Text(e.name)))
+        value: cities[0],
+        items: cities
+            .map(
+                (city) => DropdownMenuItem(value: city, child: Text(city.name)))
             .toList(),
         onChanged: (value) {
           controller.destinationCity = value as City;

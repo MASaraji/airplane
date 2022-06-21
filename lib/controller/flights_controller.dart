@@ -1,10 +1,10 @@
 import '../models.dart';
 
 class FlightsController {
-  static Map<DateTime, List> flights = {};
+  static Map<String, List> flights = {};
   static int lastAddedAirplane = 0;
 
-  static void addFlight(DateTime date, Flight flight) {
+  static void addFlight(String date, Flight flight) {
     if (flights.containsKey(date)) {
       flights[date]!.add(flight);
       return;
@@ -13,13 +13,17 @@ class FlightsController {
     flights[date] = list;
   }
 
+  static List getFlightByDate(String date) {
+    return flights[date] ?? [];
+  }
+
   static List getFlights() {
-    List flights = [];
-    for (var i in flights) {
-      for (var j in i) {
-        flights.add(j);
+    List flights_ = [];
+    for (List i in flights.values) {
+      for (Flight j in i) {
+        flights_.add(j);
       }
     }
-    return flights;
+    return flights_;
   }
 }

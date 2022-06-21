@@ -31,21 +31,21 @@ class FlightInformationPage extends StatelessWidget {
 
   Widget flightInformationAirplaneBox() {
     return TextField(
-        controller: TextEditingController(text: flight.airplane.name),
+        controller: TextEditingController(text: flight.airplane?.name),
         decoration: const InputDecoration(
             border: OutlineInputBorder(), label: Text("Airplane")));
   }
 
   Widget flightInformationOriginCityBox() {
     return TextField(
-        controller: TextEditingController(text: flight.originCity.name),
+        controller: TextEditingController(text: flight.originCity?.name),
         decoration: const InputDecoration(
             border: OutlineInputBorder(), label: Text("Origin City")));
   }
 
   Widget flightInformationDestinationCityBox() {
     return TextField(
-        controller: TextEditingController(text: flight.destinationCity.name),
+        controller: TextEditingController(text: flight.destinationCity?.name),
         decoration: const InputDecoration(
             border: OutlineInputBorder(), label: Text("Destination City")));
   }

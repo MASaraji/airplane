@@ -1,15 +1,20 @@
+import 'package:airplane/controller/flights_of_day_Page_controller.dart';
 import 'package:airplane/controller/main_page_controller.dart';
 import 'package:airplane/widgets/item_card.dart';
 import 'package:airplane/widgets/toolbar.dart';
 import "package:flutter/material.dart";
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
+import '../models.dart';
 import '../widgets/texts.dart';
 
-class FlightsOfDayPage extends GetView<MainPageController> {
+class FlightsOfDayPage extends GetView<FlightsOfDayPageController> {
   const FlightsOfDayPage({Key? key}) : super(key: key);
 
   Widget itemsList() {
+    controller.getFlights(controller.date);
+    List flights = controller.flights;
     return Expanded(
       child: Card(
         elevation: 10,
@@ -23,9 +28,15 @@ class FlightsOfDayPage extends GetView<MainPageController> {
           padding: const EdgeInsets.all(10),
           child: ListView.builder(
             primary: false,
-            itemCount: 5,
+            itemCount: flights.length,
             itemBuilder: (ctx, int index) {
-              return const ItemCard();
+              Flight flight = flights[index];
+              return ItemCard(
+                trailing:
+                    "${flight.originCity!.name} => ${flight.destinationCity!.name}",
+                title: flight.flightName,
+                subtitle: flight.departDate,
+              );
             },
           ),
         ),
@@ -52,6 +63,8 @@ class FlightsOfDayPage extends GetView<MainPageController> {
             initialDate: DateTime.now(),
             firstDate: DateTime(2020),
             lastDate: DateTime(2025));
+        controller.getFlights(
+            DateFormat(" EEEE, MM, yyyy").format(pickedDate as DateTime));
       },
       tooltip: "",
       icon: const Icon(Icons.calendar_today_rounded),
@@ -85,14 +98,13 @@ class FlightsOfDayPage extends GetView<MainPageController> {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(FlightsOfDayPageController());
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Expanded(
           child: Stack(
         fit: StackFit.expand,
         children: [
-          GetBuilder<MainPageController>(
-              init: controller,
-              builder: (ctx) => Positioned.fill(child: backgroundImage())),
+          Positioned.fill(child: backgroundImage()),
           Padding(
             padding: const EdgeInsets.only(bottom: 10),
             child: Column(
@@ -118,7 +130,7 @@ class FlightsOfDayPage extends GetView<MainPageController> {
           child: Padding(
         padding: const EdgeInsets.all(0),
         child: Column(
-          children: [toolbarMenu(context), itemsList()],
+          children: [toolbarMenu(context), Obx(itemsList)],
         ),
       ))
     ]);

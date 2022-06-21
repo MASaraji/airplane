@@ -1,8 +1,10 @@
 // ignore_for_file: unused_local_variable
 
+import 'package:airplane/controller/flights_controller.dart';
 import 'package:airplane/controller/flights_page_controller.dart';
 import "package:flutter/material.dart";
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import "../models.dart";
 import '../widgets/item_card.dart';
 import '../widgets/texts.dart';
@@ -30,8 +32,10 @@ class FlightsPage extends GetView<FlightsPageController> {
             itemBuilder: (ctx, int index) {
               Flight flight = flights[index];
               return ItemCard(
+                trailing:
+                    "${flight.originCity!.name} => ${flight.destinationCity!.name}",
                 title: flight.flightName,
-                subtitle: flight.departDate.toString(),
+                subtitle: flight.departDate,
               );
             },
           ),
@@ -51,7 +55,7 @@ class FlightsPage extends GetView<FlightsPageController> {
   Widget addFlight() {
     return IconButton(
         onPressed: () {
-          Get.toNamed("/addFlightPage");
+          Get.toNamed("/addFlightPage")!.then((_) => controller.getFlight());
         },
         icon: const Icon(Icons.add));
   }

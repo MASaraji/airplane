@@ -1,12 +1,24 @@
+import 'package:airplane/controller/add_ticket_page_controller.dart';
 import "package:flutter/material.dart";
+import 'package:get/get.dart';
 
+import '../controller/flights_controller.dart';
+import '../models.dart';
 import '../widgets/texts.dart';
 
-class AddTicketPage extends StatelessWidget {
-  const AddTicketPage({Key? key}) : super(key: key);
+class AddTicketPage extends GetView<AddTicketPageController> {
+  AddTicketPage({Key? key}) : super(key: key);
 
   Widget flightsDropDown() {
-    return DropdownButton(items: const [], onChanged: null);
+    List flights = FlightsController.getFlights();
+    print(flights.length);
+    return DropdownButton(
+        items: flights
+            .map((e) => DropdownMenuItem(value: e, child: Text(e.flightName)))
+            .toList(),
+        onChanged: (value) {
+          print(value);
+        });
   }
 
   Widget flightInfoPriceBox() {
@@ -205,6 +217,7 @@ class AddTicketPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(AddTicketPageController());
     return Expanded(
       child: Column(
         children: [

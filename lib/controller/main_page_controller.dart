@@ -21,7 +21,7 @@ class MainPageController extends GetxController {
     const CitiesPage() //page 3
     ,
 
-    const AddTicketPage(), //page 4
+    AddTicketPage(), //page 4
     const SingleChildScrollView()
   ];
 

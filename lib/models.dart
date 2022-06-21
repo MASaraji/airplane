@@ -1,13 +1,15 @@
+import 'package:flutter/material.dart';
+
 class Flight {
   final String flightName;
   final double price;
-  final DateTime departDate;
-  final DateTime departureTime;
-  final DateTime landingTime;
-  final Airplane airplane;
+  final String departDate;
+  final TimeOfDay departureTime;
+  final TimeOfDay landingTime;
+  final Airplane? airplane;
   List<Ticket> tickets = [];
-  final City originCity;
-  final City destinationCity;
+  final City? originCity;
+  final City? destinationCity;
   Flight(
       {required this.flightName,
       required this.price,
