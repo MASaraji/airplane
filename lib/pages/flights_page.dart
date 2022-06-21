@@ -1,17 +1,15 @@
 // ignore_for_file: unused_local_variable
 
-import 'package:airplane/controller/flights_controller.dart';
 import 'package:airplane/controller/flights_page_controller.dart';
 import "package:flutter/material.dart";
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import "../models.dart";
 import '../widgets/item_card.dart';
 import '../widgets/texts.dart';
 import '../widgets/toolbar.dart';
 
 class FlightsPage extends GetView<FlightsPageController> {
-  FlightsPage({Key? key}) : super(key: key);
+  const FlightsPage({Key? key}) : super(key: key);
 
   Widget itemsList() {
     List flights = controller.flights;

@@ -13,7 +13,7 @@ class AddAirplanePage extends StatelessWidget {
   final TextEditingController capacityController = TextEditingController();
 
   AppBar appBar(String title) {
-    return AppBar(title: Text(title), centerTitle: true);
+    return AppBar(title: Text(title));
   }
 
   Widget backgroundImage() {

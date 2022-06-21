@@ -62,17 +62,13 @@ class AirplanesPage extends GetView<AirplanesPageController> {
               leading: Radio(
                   value: 1,
                   groupValue: controller.sort.value,
-                  onChanged: (value) {
-                    controller.changeSort(1);
-                  }),
+                  onChanged: (value) => controller.changeSort(1)),
               title: const Text("Ascending")),
           ListTile(
               leading: Radio(
                   value: 2,
                   groupValue: controller.sort.value,
-                  onChanged: (value) {
-                    controller.changeSort(2);
-                  }),
+                  onChanged: (value) => controller.changeSort(2)),
               title: const Text("Descending"))
         ]),
       ),
@@ -101,10 +97,7 @@ class AirplanesPage extends GetView<AirplanesPageController> {
         child: Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
-        side: BorderSide(
-            color: Colors.black.withOpacity(.2) //Colors.blue.withOpacity(.5)
-            ,
-            width: 2),
+        side: BorderSide(color: Colors.black.withOpacity(.2), width: 2),
       ),
       elevation: 10,
       child: ClipRRect(

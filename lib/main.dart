@@ -13,6 +13,7 @@ GetMaterialApp app = GetMaterialApp(
     initialRoute: "/",
     getPages: routes,
     theme: ThemeData(
+      appBarTheme: const AppBarTheme(centerTitle: true),
       useMaterial3: true,
       primaryColor: Colors.blue,
     ));
@@ -22,5 +23,5 @@ List<GetPage> routes = [
   GetPage(name: "/mainPage", page: () => HomePage()),
   GetPage(name: "/addAirplanePage", page: () => AddAirplanePage()),
   GetPage(name: "/addCityPage", page: () => AddCityPage()),
-  GetPage(name: "/addFlightPage", page: () => AddFlightPage())
+  GetPage(name: "/addFlightPage", page: () => const AddFlightPage())
 ];

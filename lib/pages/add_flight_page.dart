@@ -9,7 +9,7 @@ import '../controller/cities_controller.dart';
 import '../models.dart';
 
 class AddFlightPage extends GetView<AddFlightPageController> {
-  AddFlightPage({Key? key}) : super(key: key);
+  const AddFlightPage({Key? key}) : super(key: key);
 
   AppBar appbar() {
     return AppBar(
@@ -110,7 +110,7 @@ class AddFlightPage extends GetView<AddFlightPageController> {
         onTap: () async {
           DateTime value = await showDatePicker(
               context: ctx,
-              lastDate: DateTime.now().add(Duration(days: 365)),
+              lastDate: DateTime.now().add(const Duration(days: 365)),
               firstDate: DateTime.now(),
               initialDate: DateTime.now()) as DateTime;
           controller.departDate = value;
@@ -161,7 +161,7 @@ class AddFlightPage extends GetView<AddFlightPageController> {
                   child: Column(children: [
                     Row(children: [
                       Expanded(flex: 10, child: priceInput()),
-                      Spacer(),
+                      const Spacer(),
                       Expanded(
                         flex: 10,
                         child: departDateInput(context),

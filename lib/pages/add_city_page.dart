@@ -8,14 +8,12 @@ class AddCityPage extends StatelessWidget {
   final TextEditingController nameController = TextEditingController();
 
   Widget background() {
-    return Positioned.fill(
-        child: Image.asset("assets/images/city.png", fit: BoxFit.fill));
+    return Image.asset("assets/images/city.png", fit: BoxFit.fill);
   }
 
   AppBar appbar() {
     return AppBar(
       title: const Text("Add City"),
-      centerTitle: true,
     );
   }
 
@@ -62,7 +60,7 @@ class AddCityPage extends StatelessWidget {
     return Scaffold(
         appBar: appbar(),
         body: Stack(children: [
-          background(),
+          Positioned.fill(child: background()),
           Column(
             children: [
               Padding(

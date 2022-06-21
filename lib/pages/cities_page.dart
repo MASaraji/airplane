@@ -50,7 +50,7 @@ class CitiesPage extends GetView<CitiesPageController> {
     return IconButton(
       splashRadius: 25,
       onPressed: () =>
-          Get.toNamed("/addCityPage")?.then((_) => {controller.getCities()}),
+          Get.toNamed("/addCityPage")?.then((_) => controller.getCities),
       tooltip: "Add city",
       icon: const Icon(Icons.add),
     );
@@ -66,17 +66,13 @@ class CitiesPage extends GetView<CitiesPageController> {
               leading: Radio(
                   value: 1,
                   groupValue: controller.sort.value,
-                  onChanged: (value) {
-                    controller.changeSort(1);
-                  }),
+                  onChanged: (value) => controller.changeSort(1)),
               title: const Text("Ascending")),
           ListTile(
               leading: Radio(
                   value: 2,
                   groupValue: controller.sort.value,
-                  onChanged: (value) {
-                    controller.changeSort(2);
-                  }),
+                  onChanged: (value) => controller.changeSort(2)),
               title: const Text("Descending"))
         ]),
       ),
@@ -123,7 +119,7 @@ class CitiesPage extends GetView<CitiesPageController> {
         child: Stack(
           fit: StackFit.expand,
           children: [
-            backgroundImage(),
+            Positioned.fill(child: backgroundImage()),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Column(
@@ -139,8 +135,7 @@ class CitiesPage extends GetView<CitiesPageController> {
   }
 
   Widget backgroundImage() {
-    return Positioned.fill(
-        child: Card(
+    return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
@@ -149,7 +144,7 @@ class CitiesPage extends GetView<CitiesPageController> {
           borderRadius: const BorderRadius.all(Radius.circular(20)),
           child: Image.asset("assets/images/background_city.png",
               fit: BoxFit.fill)),
-    ));
+    );
   }
 
   Widget citiesNumberWidget() {
@@ -184,6 +179,7 @@ class CitiesPage extends GetView<CitiesPageController> {
         ));
   }
 
+  // Widg
   @override
   Widget build(BuildContext context) {
     Get.put(CitiesPageController());

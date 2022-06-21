@@ -3,22 +3,19 @@ import "package:flutter/material.dart";
 import 'package:get/get.dart';
 
 import '../controller/flights_controller.dart';
-import '../models.dart';
 import '../widgets/texts.dart';
 
 class AddTicketPage extends GetView<AddTicketPageController> {
-  AddTicketPage({Key? key}) : super(key: key);
+  const AddTicketPage({Key? key}) : super(key: key);
 
   Widget flightsDropDown() {
     List flights = FlightsController.getFlights();
-    print(flights.length);
+
     return DropdownButton(
         items: flights
             .map((e) => DropdownMenuItem(value: e, child: Text(e.flightName)))
             .toList(),
-        onChanged: (value) {
-          print(value);
-        });
+        onChanged: (value) {});
   }
 
   Widget flightInfoPriceBox() {

@@ -1,6 +1,5 @@
 import 'package:airplane/controller/flights_controller.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
 class FlightsOfDayPageController extends GetxController {
   String date = DateTime.now().toString();

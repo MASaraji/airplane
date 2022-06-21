@@ -7,9 +7,10 @@ class HomePage extends GetView<MainPageController> {
   HomePage({Key? key}) : super(key: key);
 
   Widget drawerButton(String title, IconData icon, int pageNumber) {
+    int selectedPage = controller.selectedPage;
     return ListTile(
       hoverColor: Colors.transparent,
-      selected: pageNumber == controller.selectedPage,
+      selected: pageNumber == selectedPage,
       selectedTileColor: Colors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15),
@@ -56,7 +57,6 @@ class HomePage extends GetView<MainPageController> {
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
               side: BorderSide(color: Colors.blue.withOpacity(.5), width: 2)),
-          //backgroundColor: Colors.blue,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -68,9 +68,9 @@ class HomePage extends GetView<MainPageController> {
                   padding: const EdgeInsets.all(8.0),
                   child: ListView.builder(
                       itemBuilder: ((context, index) => drawerButton(
-                          menuItems[index][0],
-                          menuItems[index][1],
-                          menuItems[index][2])),
+                          menuItems[index][0], //title
+                          menuItems[index][1], //icon
+                          menuItems[index][2])), //pageNumber
                       itemCount: menuItems.length),
                 ),
               ),
@@ -88,8 +88,10 @@ class HomePage extends GetView<MainPageController> {
 
   Widget bodyPage() {
     return Expanded(
+        flex: 8,
         child: Container(
-            color: Colors.white, // const Color.fromARGB(255, 243, 243, 243),
+            padding: const EdgeInsets.only(top: 8.0, bottom: 8, right: 8),
+            color: Colors.white,
             child: controller.currentPage));
   }
 
@@ -99,17 +101,9 @@ class HomePage extends GetView<MainPageController> {
     return Scaffold(
         floatingActionButton: mainFloatingActionButton(),
         body: Row(children: [
+          GetBuilder(init: controller, builder: (ctx) => mainDrawer()),
           GetBuilder<MainPageController>(
-              init: controller, builder: (ctx) => mainDrawer()),
-          GetBuilder<MainPageController>(
-              init: controller,
-              builder: (ctx) => Expanded(
-                  flex: 8,
-                  child: Padding(
-                    padding:
-                        const EdgeInsets.only(top: 8.0, bottom: 8, right: 8),
-                    child: bodyPage(),
-                  )))
+              init: controller, builder: (ctx) => bodyPage())
         ]));
   }
 }
