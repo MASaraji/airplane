@@ -138,18 +138,16 @@ class AddTicketPage extends GetView<AddTicketPageController> {
 
   Widget passengerFirstNameInput() {
     return TextFormField(
-        onChanged: (value) {
-          controller.firstName = value;
-        },
+        textInputAction: TextInputAction.next,
+        onChanged: (value) => controller.firstName = value,
         decoration: const InputDecoration(
             border: OutlineInputBorder(), label: Text("FirstName")));
   }
 
   Widget passengerLastNameInput() {
     return TextFormField(
-      onChanged: (value) {
-        controller.lastName = value;
-      },
+      textInputAction: TextInputAction.next,
+      onChanged: (value) => controller.lastName = value,
       decoration: const InputDecoration(
           border: OutlineInputBorder(), label: Text("Last Name")),
     );
@@ -157,20 +155,18 @@ class AddTicketPage extends GetView<AddTicketPageController> {
 
   Widget passengerPhoneInput() {
     return TextFormField(
+        textInputAction: TextInputAction.next,
         inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-        onChanged: (value) {
-          controller.phone = int.parse(value);
-        },
+        onChanged: (value) => controller.phone = int.parse(value),
         decoration: const InputDecoration(
             border: OutlineInputBorder(), label: Text("Phone")));
   }
 
   Widget passengerNCodeInput() {
     return TextFormField(
+      textInputAction: TextInputAction.next,
       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-      onChanged: (value) {
-        controller.nationalCode = value;
-      },
+      onChanged: (value) => controller.nationalCode = value,
       decoration: const InputDecoration(
           border: OutlineInputBorder(), label: Text("National Code")),
     );

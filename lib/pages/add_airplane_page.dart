@@ -1,16 +1,11 @@
-import 'package:airplane/controller/airplane_controller.dart';
+import 'package:airplane/controller/add_airplane_page_controller.dart';
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-
 import '../widgets/snackbar.dart';
 
-class AddAirplanePage extends StatelessWidget {
-  AddAirplanePage({Key? key}) : super(key: key);
-  final TextEditingController nameController = TextEditingController();
-
-  final TextEditingController modelController = TextEditingController();
-  final TextEditingController capacityController = TextEditingController();
+class AddAirplanePage extends GetView<AddAirplanePageController> {
+  const AddAirplanePage({Key? key}) : super(key: key);
 
   AppBar appBar(String title) {
     return AppBar(title: Text(title));
@@ -22,7 +17,7 @@ class AddAirplanePage extends StatelessWidget {
 
   Widget nameInput() {
     return TextField(
-      controller: nameController,
+      controller: controller.nameController,
       textInputAction: TextInputAction.next,
       decoration: const InputDecoration(
         border: OutlineInputBorder(),
@@ -41,7 +36,7 @@ class AddAirplanePage extends StatelessWidget {
         }
         return null;
       },
-      controller: modelController,
+      controller: controller.modelController,
       textInputAction: TextInputAction.next,
       decoration: const InputDecoration(
         border: OutlineInputBorder(),
@@ -53,7 +48,7 @@ class AddAirplanePage extends StatelessWidget {
 
   Widget capacityInput() {
     return TextField(
-      controller: capacityController,
+      controller: controller.capacityController,
       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
       keyboardType: TextInputType.number,
       textInputAction: TextInputAction.next,
@@ -68,25 +63,19 @@ class AddAirplanePage extends StatelessWidget {
   Widget addButton() {
     return ElevatedButton(
         onPressed: () {
-          if (nameController.text.isEmpty == true) {
+          if (controller.getName().isEmpty) {
             Snackbar.snackbarError("Please enter airplane name.");
-          } else if (modelController.text.isEmpty == true) {
+          } else if (controller.getModel().isEmpty) {
             Snackbar.snackbarError("Please enter airplane model.");
-          } else if (capacityController.text.isEmpty == true) {
+          } else if (controller.getCapacity().isEmpty) {
             Snackbar.snackbarError("Please enter airplane capacity.");
           } else {
-            bool success = AirplaneController.addAirplane(nameController.text,
-                modelController.text, int.parse(capacityController.text));
+            bool success = controller.addAirplane();
             if (success == true) {
               Get.offNamed("/mainPage");
             } else {
-              Get.snackbar(
-                  "Error", "airplane already Exist.please change airplane name",
-                  backgroundColor: Colors.blue,
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                  snackPosition: SnackPosition.BOTTOM,
-                  colorText: Colors.white);
+              Snackbar.snackbarError(
+                  "Airplane already Exist.Please change airplane name.");
             }
           }
         },
@@ -95,6 +84,7 @@ class AddAirplanePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(AddAirplanePageController());
     return Scaffold(
         appBar: appBar("Add Airplane"),
         body: Stack(children: [

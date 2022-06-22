@@ -1,11 +1,10 @@
-import 'package:airplane/controller/cities_controller.dart';
+import 'package:airplane/controller/add_city_page_controller.dart';
 import "package:flutter/material.dart";
 import 'package:get/get.dart';
 import '../widgets/snackbar.dart';
 
-class AddCityPage extends StatelessWidget {
-  AddCityPage({Key? key}) : super(key: key);
-  final TextEditingController nameController = TextEditingController();
+class AddCityPage extends GetView<AddCityPageController> {
+  const AddCityPage({Key? key}) : super(key: key);
 
   Widget background() {
     return Image.asset("assets/images/city.png", fit: BoxFit.fill);
@@ -21,7 +20,7 @@ class AddCityPage extends StatelessWidget {
     return TextFormField(
       autofocus: true,
       textInputAction: TextInputAction.next,
-      controller: nameController,
+      controller: controller.nameController,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (text) {
         if (text == null || text.isEmpty) {
@@ -40,10 +39,10 @@ class AddCityPage extends StatelessWidget {
   Widget addButton() {
     return ElevatedButton(
         onPressed: () {
-          if (nameController.text.isEmpty == true) {
+          if (controller.getName().isEmpty) {
             Snackbar.snackbarError("Please enter city name.");
           } else {
-            bool success = CitiesController.addCity(nameController.text);
+            bool success = controller.addCity();
             if (success == true) {
               Get.back();
             } else {
@@ -57,6 +56,7 @@ class AddCityPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(AddCityPageController());
     return Scaffold(
         appBar: appbar(),
         body: Stack(children: [
