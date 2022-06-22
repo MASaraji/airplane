@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 
 import '../models.dart';
 import '../widgets/texts.dart';
+import 'flight_information_page.dart';
 
 class FlightsOfDayPage extends GetView<FlightsOfDayPageController> {
   const FlightsOfDayPage({Key? key}) : super(key: key);
@@ -30,6 +31,8 @@ class FlightsOfDayPage extends GetView<FlightsOfDayPageController> {
             itemBuilder: (ctx, int index) {
               Flight flight = flights[index];
               return ItemCard(
+                onTap: () => Get.dialog(AlertDialog(
+                    content: FlightInformationPage(flight: flight))),
                 trailing:
                     "${flight.originCity!.name} => ${flight.destinationCity!.name}",
                 title: flight.flightName,
@@ -62,8 +65,10 @@ class FlightsOfDayPage extends GetView<FlightsOfDayPageController> {
             firstDate: DateTime(2020),
             lastDate: DateTime(2025));
         controller.dateSpecial = pickedDate ?? controller.dateSpecial;
-        controller.getFlights(
-            DateFormat(" EEEE, MM, yyyy").format(pickedDate as DateTime));
+        pickedDate != null
+            ? controller.getFlights(
+                DateFormat(" EEEE, MM, yyyy").format(pickedDate as DateTime))
+            : null;
         controller.getFlights(controller.date);
       },
       tooltip: "",

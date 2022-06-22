@@ -1,6 +1,7 @@
 // ignore_for_file: unused_local_variable
 
 import 'package:airplane/controller/flights_page_controller.dart';
+import 'package:airplane/pages/flight_information_page.dart';
 import "package:flutter/material.dart";
 import 'package:get/get.dart';
 import "../models.dart";
@@ -30,6 +31,8 @@ class FlightsPage extends GetView<FlightsPageController> {
             itemBuilder: (ctx, int index) {
               Flight flight = flights[index];
               return ItemCard(
+                onTap: () => Get.dialog(AlertDialog(
+                    content: FlightInformationPage(flight: flight))),
                 trailing:
                     "${flight.originCity!.name} => ${flight.destinationCity!.name}",
                 title: flight.flightName,
@@ -79,8 +82,7 @@ class FlightsPage extends GetView<FlightsPageController> {
       elevation: 10,
       child: ClipRRect(
           borderRadius: const BorderRadius.all(Radius.circular(20)),
-          child: Image.asset("assets/images/flights.jpg",fit:BoxFit.fill)
-              ),
+          child: Image.asset("assets/images/flights.jpg", fit: BoxFit.fill)),
     ));
   }
 
