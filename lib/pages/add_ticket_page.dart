@@ -1,5 +1,6 @@
 import 'package:airplane/controller/add_ticket_page_controller.dart';
 import "package:flutter/material.dart";
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../controller/flights_controller.dart';
@@ -137,14 +138,20 @@ class AddTicketPage extends GetView<AddTicketPageController> {
 
   Widget passengerFirstNameInput() {
     return TextFormField(
+      onChanged: (value){
+        controller.firstName=value;
+      },
         decoration: const InputDecoration(
-            // ignore: unnecessary_const
+
             border: const OutlineInputBorder(),
             label: Text("FirstName")));
   }
 
   Widget passengerLastNameInput() {
     return TextFormField(
+      onChanged: (value){
+        controller.lastName=value;
+      },
       decoration: const InputDecoration(
           border: OutlineInputBorder(), label: Text("Last Name")),
     );
@@ -152,12 +159,20 @@ class AddTicketPage extends GetView<AddTicketPageController> {
 
   Widget passengerPhoneInput() {
     return TextFormField(
+      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+      onChanged: (value){
+        controller.phone=int.parse(value);
+      },
         decoration: const InputDecoration(
             border: OutlineInputBorder(), label: Text("Phone")));
   }
 
   Widget passengerNCodeInput() {
     return TextFormField(
+      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+      onChanged: (value){
+        controller.nationalCode=value;
+      },
       decoration: const InputDecoration(
           border: OutlineInputBorder(), label: Text("National Code")),
     );
@@ -209,7 +224,7 @@ class AddTicketPage extends GetView<AddTicketPageController> {
     return SizedBox(
         height: 50,
         width: 150,
-        child: ElevatedButton(onPressed: () {}, child: const Text("Reserve")));
+        child: ElevatedButton(onPressed:controller.addPassenger, child: const Text("Reserve")));
   }
 
   @override

@@ -1,4 +1,4 @@
-import 'package:airplane/controller/flights_of_day_Page_controller.dart';
+import 'package:airplane/controller/flights_of_day_page_controller.dart';
 import 'package:airplane/widgets/item_card.dart';
 import 'package:airplane/widgets/toolbar.dart';
 import "package:flutter/material.dart";
