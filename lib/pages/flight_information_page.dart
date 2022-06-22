@@ -87,38 +87,38 @@ class FlightInformationPage extends StatelessWidget {
               flex: 3,
               child: Texts.pageTitle("Flight Information",
                   color: Colors.black, fontsize: 40)),
-          Spacer(),
+          const Spacer(),
           Expanded(
               flex: 3,
               child: Row(
                 children: [
                   Expanded(flex: 5, child: flightInformationAirplaneBox()),
-                  Spacer(),
+                  const Spacer(),
                   Expanded(flex: 1, child: flightInformationPriceBox()),
                 ],
               )),
-          Spacer(),
+          const Spacer(),
           Expanded(
               flex: 3,
               child: Row(
                 children: [
                   Expanded(flex: 5, child: flightInformationDepartTimeBox()),
-                  Spacer(),
+                  const Spacer(),
                   Expanded(flex: 5, child: flightInformationLandingTimeBox()),
                 ],
               )),
-          Spacer(),
+          const Spacer(),
           Expanded(
               flex: 3,
               child: Row(
                 children: [
                   Expanded(flex: 5, child: flightInformationOriginCityBox()),
-                  Spacer(),
+                  const Spacer(),
                   Expanded(
                       flex: 5, child: flightInformationDestinationCityBox()),
                 ],
               )),
-          Spacer(),
+          const Spacer(),
           Expanded(flex: 12, child: itemsList())
         ],
       ),

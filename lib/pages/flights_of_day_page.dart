@@ -66,8 +66,8 @@ class FlightsOfDayPage extends GetView<FlightsOfDayPageController> {
             lastDate: DateTime(2025));
         controller.dateSpecial = pickedDate ?? controller.dateSpecial;
         pickedDate != null
-            ? controller.getFlights(
-                DateFormat(" EEEE, MM, yyyy").format(pickedDate as DateTime))
+            ? controller
+                .getFlights(DateFormat(" EEEE, MM, yyyy").format(pickedDate))
             : null;
         controller.getFlights(controller.date);
       },
