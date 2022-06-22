@@ -89,9 +89,8 @@ class FlightsOfDayPage extends GetView<FlightsOfDayPageController> {
       elevation: 10,
       child: ClipRRect(
           borderRadius: const BorderRadius.all(Radius.circular(20)),
-          child: Image.network(
-              "https://cdn.dribbble.com/users/2146089/screenshots/6237820/preview_4x.png",
-              fit: BoxFit.cover)),
+          child: Image.asset("assets/images/flightsOfDay.png",fit:BoxFit.cover)
+              ),
     );
   }
 

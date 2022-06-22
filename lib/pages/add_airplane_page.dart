@@ -18,10 +18,8 @@ class AddAirplanePage extends StatelessWidget {
 
   Widget backgroundImage() {
     return Positioned.fill(
-        child: Image.network(
-      "https://cdn.dribbble.com/users/1733140/screenshots/15699220/media/81cdcc8d3783b37e5ab15ad5a74af121.png",
-      fit: BoxFit.fill,
-    ));
+        child:Image.asset("assets/images/addAirplane.png",fit:BoxFit.fill)
+    );
   }
 
   Widget nameInput() {

@@ -26,4 +26,8 @@ class FlightsController {
     }
     return flights_;
   }
+
+  static int getFlightNum(){
+    return lastAddedAirplane++;
+  }
 }

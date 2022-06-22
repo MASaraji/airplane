@@ -79,9 +79,8 @@ class FlightsPage extends GetView<FlightsPageController> {
       elevation: 10,
       child: ClipRRect(
           borderRadius: const BorderRadius.all(Radius.circular(20)),
-          child: Image.network(
-              "https://cdn.dribbble.com/users/1875932/screenshots/6492790/airportewageruzel.jpg",
-              fit: BoxFit.fill)),
+          child: Image.asset("assets/images/flights.jpg",fit:BoxFit.fill)
+              ),
     ));
   }
 

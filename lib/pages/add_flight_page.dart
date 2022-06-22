@@ -1,6 +1,6 @@
 import 'package:airplane/controller/airplane_controller.dart';
-import 'package:airplane/controller/flights_controller.dart';
 import "package:flutter/material.dart";
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -21,22 +21,7 @@ class AddFlightPage extends GetView<AddFlightPageController> {
   Widget addButton() {
     return ElevatedButton(
         onPressed: () {
-          Flight flight = Flight(
-            flightName: FlightsController.lastAddedAirplane.toString(),
-            price: controller.price,
-            departureTime: controller.departTime as TimeOfDay,
-            landingTime: controller.arrivalTime as TimeOfDay,
-            departDate: DateFormat(" EEEE, MM, yyyy")
-                .format(controller.departDate as DateTime),
-            airplane: controller.airplane,
-            originCity: controller.originCity,
-            destinationCity: controller.destinationCity,
-          );
-          FlightsController.addFlight(
-              DateFormat(" EEEE, MM, yyyy")
-                  .format(controller.departDate as DateTime),
-              flight);
-
+          controller.addFlight();
           Get.back();
         },
         child: const Text("Add", style: TextStyle(fontSize: 20)));
@@ -44,9 +29,11 @@ class AddFlightPage extends GetView<AddFlightPageController> {
 
   Widget priceInput() {
     return TextFormField(
-        onChanged: (value) {
-          controller.price = double.parse(value);
-        },
+      inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r"^[0-9]+\.?[0-9]*$")),
+      ],
+        onChanged: (value) =>
+          value!="" ? controller.price = double.parse(value) : null
+        ,
         textInputAction: TextInputAction.next,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         decoration: const InputDecoration(
@@ -55,7 +42,7 @@ class AddFlightPage extends GetView<AddFlightPageController> {
 
   Widget departTimeInput(BuildContext ctx) {
     return TextField(
-      controller: controller.departTimeController,
+      controller: TextEditingController(text:controller.departTime.toString()),
       readOnly: true,
       decoration: const InputDecoration(
           // ignore: unnecessary_const
@@ -64,14 +51,14 @@ class AddFlightPage extends GetView<AddFlightPageController> {
       onTap: () async {
         TimeOfDay? value =
             await showTimePicker(context: ctx, initialTime: TimeOfDay.now());
-        controller.departTime = value;
+        controller.departTime = value ?? controller.departTime;
       },
     );
   }
 
   Widget arrivalTimeInput(BuildContext ctx) {
     return TextField(
-      controller: controller.arrivalTimeController,
+      controller: TextEditingController(text: controller.arrivalTime.toString()),
       readOnly: true,
       decoration: const InputDecoration(
           // ignore: unnecessary_const
@@ -80,7 +67,7 @@ class AddFlightPage extends GetView<AddFlightPageController> {
       onTap: () async {
         TimeOfDay? value =
             await showTimePicker(context: ctx, initialTime: TimeOfDay.now());
-        controller.arrivalTime = value;
+        controller.arrivalTime = value ?? controller.arrivalTime;
       },
     );
   }
@@ -100,20 +87,21 @@ class AddFlightPage extends GetView<AddFlightPageController> {
   }
 
   Widget departDateInput(BuildContext ctx) {
-    return TextField(
-        controller: controller.departDateController,
+    return TextFormField(
+      controller:TextEditingController(text:DateFormat(" EEEE, MM, yyyy").format(controller.departDate)),
         readOnly: true,
         decoration: const InputDecoration(
             // ignore: unnecessary_const
             border: const OutlineInputBorder(),
             label: Text("Depart Date")),
         onTap: () async {
-          DateTime value = await showDatePicker(
+          DateTime? value = await showDatePicker(
               context: ctx,
               lastDate: DateTime.now().add(const Duration(days: 365)),
               firstDate: DateTime.now(),
-              initialDate: DateTime.now()) as DateTime;
-          controller.departDate = value;
+              initialDate: DateTime.now());
+
+          controller.departDate = value ?? controller.departDate;
         });
   }
 

@@ -2,7 +2,7 @@ import 'package:airplane/models.dart';
 
 class AirplaneController {
   static Map<String, Airplane> airplanes = {
-    "test1": Airplane(name: "test1", model: "test1", capacity: 5),
+    "425A": Airplane(name: "425A", model: "Airbus 727", capacity: 100),
   };
 
   static bool addAirplane(String name, String model, int capacity) {

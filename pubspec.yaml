@@ -68,6 +68,12 @@ flutter:
     - assets/images/city.png
     - assets/gifs/airplane.gif
     - assets/images/background_city.png
+    - assets/images/flights.jpg
+    - assets/images/addAirplane.png
+
+    - assets/images/flightsOfDay.png
+
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

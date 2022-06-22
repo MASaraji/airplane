@@ -50,7 +50,7 @@ class CitiesPage extends GetView<CitiesPageController> {
     return IconButton(
       splashRadius: 25,
       onPressed: () =>
-          Get.toNamed("/addCityPage")?.then((_) => controller.getCities),
+          Get.toNamed("/addCityPage")?.then((_)=>controller.getCities()),
       tooltip: "Add city",
       icon: const Icon(Icons.add),
     );
@@ -89,6 +89,7 @@ class CitiesPage extends GetView<CitiesPageController> {
 
   Widget searchBox() {
     return TextField(
+      autofocus:true,
       onChanged: (pattern) => controller.getCities(pattern),
       decoration: const InputDecoration(
           border: OutlineInputBorder(),
