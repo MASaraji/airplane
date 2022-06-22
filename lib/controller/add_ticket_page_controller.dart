@@ -17,7 +17,7 @@ class AddTicketPageController extends GetxController {
   late String firstName;
   late String lastName;
   late String nationalCode;
-  late int phone; 
+  late int phone;
 
   void setFlight(Flight flight_) {
     flight = flight_;
@@ -30,11 +30,14 @@ class AddTicketPageController extends GetxController {
     cap = flight.airplane!.capacity;
     soldedTicket = flight.tickets.length;
   }
-  void addPassenger(){
-    Passenger passenger=Passenger(name: "$firstName $lastName", nationalCode:nationalCode, );
+
+  void addPassenger() {
+    Passenger passenger = Passenger(
+      name: "$firstName $lastName",
+      nationalCode: nationalCode,
+    );
     passenger.addPhone(phone);
-    Ticket  ticket=Ticket( passenger: passenger, price: price);
+    Ticket ticket = Ticket(passenger: passenger, price: price);
     flight.addTicket(ticket);
-    print(flight.tickets);
   }
 }

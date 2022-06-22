@@ -1,8 +1,10 @@
 import 'package:airplane/controller/add_ticket_page_controller.dart';
+import 'package:airplane/widgets/snackbar.dart';
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import '../controller/flights_controller.dart';
+import '../models.dart';
 import '../widgets/texts.dart';
 
 class AddTicketPage extends GetView<AddTicketPageController> {
@@ -16,7 +18,7 @@ class AddTicketPage extends GetView<AddTicketPageController> {
             .map((flight) =>
                 DropdownMenuItem(value: flight, child: Text(flight.flightName)))
             .toList(),
-        onChanged: (value) {});
+        onChanged: (value) => controller.setFlight(value as Flight));
   }
 
   Widget flightInfoPriceBox() {
@@ -221,7 +223,11 @@ class AddTicketPage extends GetView<AddTicketPageController> {
         height: 50,
         width: 150,
         child: ElevatedButton(
-            onPressed: controller.addPassenger, child: const Text("Reserve")));
+            onPressed: () {
+              controller.addPassenger();
+              Snackbar.snackbarSuccess("Ticket added successfully.");
+            },
+            child: const Text("Reserve")));
   }
 
   @override

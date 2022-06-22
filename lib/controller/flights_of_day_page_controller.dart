@@ -4,6 +4,7 @@ import 'flights_controller.dart';
 
 class FlightsOfDayPageController extends GetxController {
   String date = DateTime.now().toString();
+  DateTime dateSpecial = DateTime.now();
   var flights = [].obs;
 
   void getFlights(String date_) {

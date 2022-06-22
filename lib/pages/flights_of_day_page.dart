@@ -12,7 +12,6 @@ class FlightsOfDayPage extends GetView<FlightsOfDayPageController> {
   const FlightsOfDayPage({Key? key}) : super(key: key);
 
   Widget itemsList() {
-    controller.getFlights(controller.date);
     List flights = controller.flights;
     return Expanded(
       child: Card(
@@ -59,11 +58,13 @@ class FlightsOfDayPage extends GetView<FlightsOfDayPageController> {
       onPressed: () async {
         DateTime? pickedDate = await showDatePicker(
             context: context,
-            initialDate: DateTime.now(),
+            initialDate: controller.dateSpecial,
             firstDate: DateTime(2020),
             lastDate: DateTime(2025));
+        controller.dateSpecial = pickedDate ?? controller.dateSpecial;
         controller.getFlights(
             DateFormat(" EEEE, MM, yyyy").format(pickedDate as DateTime));
+        controller.getFlights(controller.date);
       },
       tooltip: "",
       icon: const Icon(Icons.calendar_today_rounded),
@@ -89,8 +90,8 @@ class FlightsOfDayPage extends GetView<FlightsOfDayPageController> {
       elevation: 10,
       child: ClipRRect(
           borderRadius: const BorderRadius.all(Radius.circular(20)),
-          child: Image.asset("assets/images/flightsOfDay.png",fit:BoxFit.cover)
-              ),
+          child:
+              Image.asset("assets/images/flightsOfDay.png", fit: BoxFit.cover)),
     );
   }
 
