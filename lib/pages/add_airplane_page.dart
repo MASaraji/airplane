@@ -17,9 +17,7 @@ class AddAirplanePage extends StatelessWidget {
   }
 
   Widget backgroundImage() {
-    return Positioned.fill(
-        child:Image.asset("assets/images/addAirplane.png",fit:BoxFit.fill)
-    );
+    return Image.asset("assets/images/addAirplane.png", fit: BoxFit.fill);
   }
 
   Widget nameInput() {
@@ -100,7 +98,7 @@ class AddAirplanePage extends StatelessWidget {
     return Scaffold(
         appBar: appBar("Add Airplane"),
         body: Stack(children: [
-          backgroundImage(),
+          Positioned.fill(child: backgroundImage()),
           Column(
             children: [
               Padding(

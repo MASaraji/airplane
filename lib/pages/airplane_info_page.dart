@@ -38,10 +38,8 @@ class AirplaneInfoPage extends StatelessWidget {
     return TextField(
         controller: TextEditingController(text: airplane.name),
         readOnly: true,
-        decoration:
-            // ignore: unnecessary_const
-            const InputDecoration(
-                border: OutlineInputBorder(), label: Text("Name")));
+        decoration: const InputDecoration(
+            border: OutlineInputBorder(), label: Text("Name")));
   }
 
   Widget airplaneModelBox() {

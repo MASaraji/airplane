@@ -29,11 +29,11 @@ class AddFlightPage extends GetView<AddFlightPageController> {
 
   Widget priceInput() {
     return TextFormField(
-      inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r"^[0-9]+\.?[0-9]*$")),
-      ],
+        inputFormatters: [
+          FilteringTextInputFormatter.allow(RegExp(r"^[0-9]+\.?[0-9]*$")),
+        ],
         onChanged: (value) =>
-          value!="" ? controller.price = double.parse(value) : null
-        ,
+            value != "" ? controller.price = double.parse(value) : null,
         textInputAction: TextInputAction.next,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         decoration: const InputDecoration(
@@ -42,12 +42,10 @@ class AddFlightPage extends GetView<AddFlightPageController> {
 
   Widget departTimeInput(BuildContext ctx) {
     return TextField(
-      controller: TextEditingController(text:controller.departTime.toString()),
+      controller: TextEditingController(text: controller.departTime.toString()),
       readOnly: true,
       decoration: const InputDecoration(
-          // ignore: unnecessary_const
-          border: const OutlineInputBorder(),
-          label: Text("Depart Time")),
+          border: OutlineInputBorder(), label: Text("Depart Time")),
       onTap: () async {
         TimeOfDay? value =
             await showTimePicker(context: ctx, initialTime: TimeOfDay.now());
@@ -58,12 +56,11 @@ class AddFlightPage extends GetView<AddFlightPageController> {
 
   Widget arrivalTimeInput(BuildContext ctx) {
     return TextField(
-      controller: TextEditingController(text: controller.arrivalTime.toString()),
+      controller:
+          TextEditingController(text: controller.arrivalTime.toString()),
       readOnly: true,
       decoration: const InputDecoration(
-          // ignore: unnecessary_const
-          border: const OutlineInputBorder(),
-          label: Text("Arrival Time")),
+          border: OutlineInputBorder(), label: Text("Arrival Time")),
       onTap: () async {
         TimeOfDay? value =
             await showTimePicker(context: ctx, initialTime: TimeOfDay.now());
@@ -88,12 +85,11 @@ class AddFlightPage extends GetView<AddFlightPageController> {
 
   Widget departDateInput(BuildContext ctx) {
     return TextFormField(
-      controller:TextEditingController(text:DateFormat(" EEEE, MM, yyyy").format(controller.departDate)),
+        controller: TextEditingController(
+            text: DateFormat(" EEEE, MM, yyyy").format(controller.departDate)),
         readOnly: true,
         decoration: const InputDecoration(
-            // ignore: unnecessary_const
-            border: const OutlineInputBorder(),
-            label: Text("Depart Date")),
+            border: OutlineInputBorder(), label: Text("Depart Date")),
         onTap: () async {
           DateTime? value = await showDatePicker(
               context: ctx,
@@ -139,8 +135,6 @@ class AddFlightPage extends GetView<AddFlightPageController> {
     return Scaffold(
         appBar: appbar(),
         body: Stack(children: [
-          //background(),
-
           Column(
             children: [
               Padding(
