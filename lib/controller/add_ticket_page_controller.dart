@@ -4,15 +4,15 @@ import 'package:get/get.dart';
 import '../models.dart';
 
 class AddTicketPageController extends GetxController {
-  late Flight flight;
-  late Airplane airplane;
-  late TimeOfDay departTime;
-  late TimeOfDay arrivalTime;
-  late double price;
-  late City originCity;
-  late City destinationCity;
-  late int cap;
-  late int soldedTicket;
+  Flight? flight;
+  Airplane? airplane;
+  TimeOfDay? departTime;
+  TimeOfDay? arrivalTime;
+  double? price;
+  City? originCity;
+  City? destinationCity;
+  int? cap;
+  int? soldedTicket;
 
   late String firstName;
   late String lastName;
@@ -21,14 +21,15 @@ class AddTicketPageController extends GetxController {
 
   void setFlight(Flight flight_) {
     flight = flight_;
-    airplane = flight.airplane!;
-    departTime = flight.departureTime;
-    arrivalTime = flight.landingTime;
-    price = flight.price;
-    originCity = flight.originCity!;
-    destinationCity = flight.destinationCity!;
-    cap = flight.airplane!.capacity;
-    soldedTicket = flight.tickets.length;
+    airplane = flight!.airplane!;
+    departTime = flight!.departureTime;
+    arrivalTime = flight!.landingTime;
+    price = flight!.price;
+    originCity = flight!.originCity!;
+    destinationCity = flight!.destinationCity!;
+    cap = flight!.airplane!.capacity;
+    soldedTicket = flight!.tickets.length;
+    update();
   }
 
   void addPassenger() {
@@ -37,7 +38,7 @@ class AddTicketPageController extends GetxController {
       nationalCode: nationalCode,
     );
     passenger.addPhone(phone);
-    Ticket ticket = Ticket(passenger: passenger, price: price);
-    flight.addTicket(ticket);
+    Ticket ticket = Ticket(passenger: passenger, price: price as double);
+    flight!.addTicket(ticket);
   }
 }

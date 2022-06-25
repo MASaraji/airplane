@@ -37,7 +37,8 @@ class AddFlightPage extends GetView<AddFlightPageController> {
 
   Widget departTimeInput(BuildContext ctx) {
     return TextField(
-      controller: TextEditingController(text: controller.departTime.toString()),
+      controller:
+          TextEditingController(text: controller.departTime.format(ctx)),
       readOnly: true,
       decoration: const InputDecoration(
           border: OutlineInputBorder(), label: Text("Depart Time")),
@@ -52,7 +53,7 @@ class AddFlightPage extends GetView<AddFlightPageController> {
   Widget arrivalTimeInput(BuildContext ctx) {
     return TextField(
       controller:
-          TextEditingController(text: controller.arrivalTime.toString()),
+          TextEditingController(text: controller.arrivalTime.format(ctx)),
       readOnly: true,
       decoration: const InputDecoration(
           border: OutlineInputBorder(), label: Text("Arrival Time")),
@@ -67,7 +68,7 @@ class AddFlightPage extends GetView<AddFlightPageController> {
   Widget airplaneDropBox() {
     List airplane = controller.getAirplanes();
     return DropdownButton(
-        value: airplane[0],
+        value: controller.airplane,
         items: airplane
             .map((airplane) =>
                 DropdownMenuItem(value: airplane, child: Text(airplane.name)))
@@ -79,7 +80,7 @@ class AddFlightPage extends GetView<AddFlightPageController> {
   Widget departDateInput(BuildContext ctx) {
     return TextFormField(
         controller: TextEditingController(
-            text: DateFormat(" EEEE, MM, yyyy").format(controller.departDate)),
+            text: DateFormat(" EEEE d/MM/yyyy").format(controller.departDate)),
         readOnly: true,
         decoration: const InputDecoration(
             border: OutlineInputBorder(), label: Text("Depart Date")),
@@ -96,7 +97,7 @@ class AddFlightPage extends GetView<AddFlightPageController> {
   Widget originCityDropBox() {
     List cities = controller.getCities();
     return DropdownButton(
-        value: cities[0],
+        value: controller.originCity,
         items: cities
             .map(
                 (city) => DropdownMenuItem(value: city, child: Text(city.name)))
@@ -108,7 +109,7 @@ class AddFlightPage extends GetView<AddFlightPageController> {
   Widget destinationCityDropBox() {
     List cities = controller.getCities();
     return DropdownButton(
-        value: cities[0],
+        value: controller.destinationCity,
         items: cities
             .map(
                 (city) => DropdownMenuItem(value: city, child: Text(city.name)))
@@ -123,38 +124,41 @@ class AddFlightPage extends GetView<AddFlightPageController> {
     return Scaffold(
         appBar: appbar(),
         body: Stack(children: [
-          Column(
-            children: [
-              Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-                  child: Column(children: [
-                    Row(children: [
-                      Expanded(flex: 10, child: priceInput()),
-                      const Spacer(),
-                      Expanded(
-                        flex: 10,
-                        child: departDateInput(context),
+          GetBuilder<AddFlightPageController>(
+            init: controller,
+            builder: (ctx) => Column(
+              children: [
+                Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 50, vertical: 20),
+                    child: Column(children: [
+                      Row(children: [
+                        Expanded(flex: 10, child: priceInput()),
+                        const Spacer(),
+                        Expanded(
+                          flex: 10,
+                          child: departDateInput(context),
+                        )
+                      ]),
+                      const SizedBox(height: 20),
+                      Row(children: [
+                        Expanded(flex: 10, child: departTimeInput(context)),
+                        const Spacer(),
+                        Expanded(flex: 10, child: arrivalTimeInput(context)),
+                      ]),
+                      const SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          airplaneDropBox(),
+                          originCityDropBox(),
+                          destinationCityDropBox()
+                        ],
                       )
-                    ]),
-                    const SizedBox(height: 20),
-                    Row(children: [
-                      Expanded(flex: 10, child: departTimeInput(context)),
-                      const Spacer(),
-                      Expanded(flex: 10, child: arrivalTimeInput(context)),
-                    ]),
-                    const SizedBox(height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        airplaneDropBox(),
-                        originCityDropBox(),
-                        destinationCityDropBox()
-                      ],
-                    )
-                  ])),
-              SizedBox(width: 150, height: 50, child: addButton()),
-            ],
+                    ])),
+                SizedBox(width: 150, height: 50, child: addButton()),
+              ],
+            ),
           ),
         ]));
   }

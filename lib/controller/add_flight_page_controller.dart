@@ -9,31 +9,46 @@ import 'cities_controller.dart';
 
 class AddFlightPageController extends GetxController {
   late String flightName = FlightsController.getFlightNum().toString();
-  late Airplane airplane;
-  late City originCity;
-  late City destinationCity;
+  Airplane? airplane;
+  City? originCity;
+  City? destinationCity;
   DateTime departDate = DateTime.now();
   TimeOfDay departTime = TimeOfDay.now();
   TimeOfDay arrivalTime = TimeOfDay.now();
   double price = 0;
-  void addDestinationCity(City destinationCity_) =>
-      destinationCity = destinationCity_;
 
-  void addDepartDate(DateTime? departDate_) =>
-      departDate = departDate_ ?? departDate;
+  void addDestinationCity(City destinationCity_) {
+    destinationCity = destinationCity_;
+    update();
+  }
 
-  void addAirplane(Airplane airplane_) => airplane = airplane_;
+  void addDepartDate(DateTime? departDate_) {
+    departDate = departDate_ ?? departDate;
+    update();
+  }
 
-  void addArrivalTime(TimeOfDay? arrivalTime_) =>
-      arrivalTime = arrivalTime_ ?? arrivalTime;
+  void addAirplane(Airplane airplane_) {
+    airplane = airplane_;
+    update();
+  }
 
-  void addDepartTime(TimeOfDay? departTime_) =>
-      departTime = departTime_ ?? departTime;
+  void addArrivalTime(TimeOfDay? arrivalTime_) {
+    arrivalTime = arrivalTime_ ?? arrivalTime;
+    update();
+  }
+
+  void addDepartTime(TimeOfDay? departTime_) {
+    departTime = departTime_ ?? departTime;
+    update();
+  }
 
   void addPrice(String price_) =>
       price_.isNotEmpty ? price = double.parse(price_) : null;
 
-  void addOriginCity(City originCity_) => originCity = originCity_;
+  void addOriginCity(City originCity_) {
+    originCity = originCity_;
+    update();
+  }
 
   void addFlight() {
     String departDate_ = DateFormat(" EEEE, MM, yyyy").format(departDate);

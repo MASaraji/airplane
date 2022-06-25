@@ -14,6 +14,9 @@ class AddTicketPage extends GetView<AddTicketPageController> {
     List flights = FlightsController.getFlights();
 
     return DropdownButton(
+        value: controller.flight,
+        hint: Text("Flights"),
+        autofocus: true,
         items: flights
             .map((flight) =>
                 DropdownMenuItem(value: flight, child: Text(flight.flightName)))
@@ -22,23 +25,28 @@ class AddTicketPage extends GetView<AddTicketPageController> {
   }
 
   Widget flightInfoPriceBox() {
-    return const TextField(
+    return TextField(
+      controller: TextEditingController(text: controller.price?.toString()),
       readOnly: true,
       decoration:
           InputDecoration(border: OutlineInputBorder(), label: Text("Price")),
     );
   }
 
-  Widget flightInfoDepartTimeeBox() {
-    return const TextField(
+  Widget flightInfoDepartTimeBox(BuildContext ctx) {
+    return TextField(
+      controller:
+          TextEditingController(text: controller.departTime?.format(ctx)),
       readOnly: true,
       decoration: InputDecoration(
           border: OutlineInputBorder(), label: Text("Depart Time")),
     );
   }
 
-  Widget flightInfoArrivalTimeBox() {
-    return const TextField(
+  Widget flightInfoArrivalTimeBox(BuildContext ctx) {
+    return TextField(
+      controller:
+          TextEditingController(text: controller.arrivalTime?.format(ctx)),
       readOnly: true,
       decoration: InputDecoration(
           border: OutlineInputBorder(), label: Text("Arrival Time")),
@@ -46,7 +54,8 @@ class AddTicketPage extends GetView<AddTicketPageController> {
   }
 
   Widget flightInfoAirplaneBox() {
-    return const TextField(
+    return TextField(
+      controller: TextEditingController(text: controller.airplane?.name),
       readOnly: true,
       decoration: InputDecoration(
           border: OutlineInputBorder(), label: Text("Airplane")),
@@ -54,7 +63,8 @@ class AddTicketPage extends GetView<AddTicketPageController> {
   }
 
   Widget flightInfoOriginCityBox() {
-    return const TextField(
+    return TextField(
+      controller: TextEditingController(text: controller.originCity?.name),
       readOnly: true,
       decoration: InputDecoration(
           border: OutlineInputBorder(), label: Text("Origin City")),
@@ -62,7 +72,8 @@ class AddTicketPage extends GetView<AddTicketPageController> {
   }
 
   Widget flightInfoDestinationCityBox() {
-    return const TextField(
+    return TextField(
+      controller: TextEditingController(text: controller.destinationCity?.name),
       readOnly: true,
       decoration: InputDecoration(
           border: OutlineInputBorder(), label: Text("Destination City")),
@@ -70,7 +81,8 @@ class AddTicketPage extends GetView<AddTicketPageController> {
   }
 
   Widget flightInfoCapBox() {
-    return const TextField(
+    return TextField(
+      controller: TextEditingController(text: controller.cap?.toString()),
       readOnly: true,
       decoration: InputDecoration(
           border: OutlineInputBorder(), label: Text("Capacity")),
@@ -78,14 +90,16 @@ class AddTicketPage extends GetView<AddTicketPageController> {
   }
 
   Widget flightInfoSoldedTicketsBox() {
-    return const TextField(
+    return TextField(
+      controller:
+          TextEditingController(text: controller.soldedTicket?.toString()),
       readOnly: true,
       decoration: InputDecoration(
           border: OutlineInputBorder(), label: Text("Solded Ticket")),
     );
   }
 
-  Widget flightInfo() {
+  Widget flightInfo(BuildContext ctx) {
     return Expanded(
         flex: 2,
         child: Card(
@@ -113,9 +127,9 @@ class AddTicketPage extends GetView<AddTicketPageController> {
                 Expanded(
                     child: Row(
                   children: [
-                    Expanded(flex: 19, child: flightInfoDepartTimeeBox()),
+                    Expanded(flex: 19, child: flightInfoDepartTimeBox(ctx)),
                     const Spacer(),
-                    Expanded(flex: 19, child: flightInfoArrivalTimeBox()),
+                    Expanded(flex: 19, child: flightInfoArrivalTimeBox(ctx)),
                   ],
                 )),
                 Expanded(
@@ -232,7 +246,8 @@ class AddTicketPage extends GetView<AddTicketPageController> {
     return Expanded(
       child: Column(
         children: [
-          flightInfo(),
+          GetBuilder<AddTicketPageController>(
+              init: controller, builder: (ctx) => flightInfo(context)),
           const SizedBox(height: 20),
           passengerInfo(),
           reserveButton(),
