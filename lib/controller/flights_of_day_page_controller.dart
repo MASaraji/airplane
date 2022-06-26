@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import 'flights_controller.dart';
 
@@ -7,8 +8,12 @@ class FlightsOfDayPageController extends GetxController {
   DateTime dateSpecial = DateTime.now();
   var flights = [].obs;
 
-  void getFlights(String date_) {
-    date = date_;
+  void getFlights(DateTime? date_) {
+    if (date_ != null) date = DateFormat(" EEEE, MM, yyyy").format(date_);
     flights.value = FlightsController.getFlightByDate(date);
+  }
+
+  void setDateSpecial(DateTime? date_) {
+    dateSpecial = date_ ?? dateSpecial;
   }
 }

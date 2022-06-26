@@ -15,7 +15,7 @@ class AddTicketPage extends GetView<AddTicketPageController> {
 
     return DropdownButton(
         value: controller.flight,
-        hint: Text("Flights"),
+        hint: const Text("Flights"),
         autofocus: true,
         items: flights
             .map((flight) =>
@@ -28,8 +28,8 @@ class AddTicketPage extends GetView<AddTicketPageController> {
     return TextField(
       controller: TextEditingController(text: controller.price?.toString()),
       readOnly: true,
-      decoration:
-          InputDecoration(border: OutlineInputBorder(), label: Text("Price")),
+      decoration: const InputDecoration(
+          border: OutlineInputBorder(), label: Text("Price")),
     );
   }
 
@@ -38,7 +38,7 @@ class AddTicketPage extends GetView<AddTicketPageController> {
       controller:
           TextEditingController(text: controller.departTime?.format(ctx)),
       readOnly: true,
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
           border: OutlineInputBorder(), label: Text("Depart Time")),
     );
   }
@@ -48,7 +48,7 @@ class AddTicketPage extends GetView<AddTicketPageController> {
       controller:
           TextEditingController(text: controller.arrivalTime?.format(ctx)),
       readOnly: true,
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
           border: OutlineInputBorder(), label: Text("Arrival Time")),
     );
   }
@@ -57,7 +57,7 @@ class AddTicketPage extends GetView<AddTicketPageController> {
     return TextField(
       controller: TextEditingController(text: controller.airplane?.name),
       readOnly: true,
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
           border: OutlineInputBorder(), label: Text("Airplane")),
     );
   }
@@ -66,7 +66,7 @@ class AddTicketPage extends GetView<AddTicketPageController> {
     return TextField(
       controller: TextEditingController(text: controller.originCity?.name),
       readOnly: true,
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
           border: OutlineInputBorder(), label: Text("Origin City")),
     );
   }
@@ -75,7 +75,7 @@ class AddTicketPage extends GetView<AddTicketPageController> {
     return TextField(
       controller: TextEditingController(text: controller.destinationCity?.name),
       readOnly: true,
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
           border: OutlineInputBorder(), label: Text("Destination City")),
     );
   }
@@ -84,7 +84,7 @@ class AddTicketPage extends GetView<AddTicketPageController> {
     return TextField(
       controller: TextEditingController(text: controller.cap?.toString()),
       readOnly: true,
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
           border: OutlineInputBorder(), label: Text("Capacity")),
     );
   }
@@ -94,7 +94,7 @@ class AddTicketPage extends GetView<AddTicketPageController> {
       controller:
           TextEditingController(text: controller.soldedTicket?.toString()),
       readOnly: true,
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
           border: OutlineInputBorder(), label: Text("Solded Ticket")),
     );
   }
@@ -152,6 +152,7 @@ class AddTicketPage extends GetView<AddTicketPageController> {
 
   Widget passengerFirstNameInput() {
     return TextFormField(
+        controller: TextEditingController(text: controller.firstName),
         textInputAction: TextInputAction.next,
         onChanged: (value) => controller.firstName = value,
         decoration: const InputDecoration(
@@ -160,6 +161,7 @@ class AddTicketPage extends GetView<AddTicketPageController> {
 
   Widget passengerLastNameInput() {
     return TextFormField(
+      controller: TextEditingController(text: controller.lastName),
       textInputAction: TextInputAction.next,
       onChanged: (value) => controller.lastName = value,
       decoration: const InputDecoration(
@@ -169,6 +171,7 @@ class AddTicketPage extends GetView<AddTicketPageController> {
 
   Widget passengerPhoneInput() {
     return TextFormField(
+        controller: TextEditingController(text: controller.phone?.toString()),
         textInputAction: TextInputAction.next,
         inputFormatters: [FilteringTextInputFormatter.digitsOnly],
         onChanged: (value) => controller.phone = int.parse(value),
@@ -178,6 +181,7 @@ class AddTicketPage extends GetView<AddTicketPageController> {
 
   Widget passengerNCodeInput() {
     return TextFormField(
+      controller: TextEditingController(text: controller.nationalCode),
       textInputAction: TextInputAction.next,
       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
       onChanged: (value) => controller.nationalCode = value,

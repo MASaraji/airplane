@@ -16,35 +16,30 @@ class AirplanesPage extends GetView<AirplanesPageController> {
     return Expanded(
       child: Card(
         elevation: 10,
+        surfaceTintColor: Colors.white,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
             side: BorderSide(color: Colors.black.withOpacity(.2), width: 2)),
-        child: Container(
-          decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(Radius.circular(10))),
+        child: ListView.builder(
           padding: const EdgeInsets.all(10),
-          child: ListView.builder(
-            primary: false,
-            itemCount: airplanes.length,
-            itemBuilder: (ctx, int index) {
-              Airplane airplane = airplanes[index];
-              return ItemCard(
-                  title: airplane.name,
-                  subtitle: airplane.model,
-                  onTap: () => Get.dialog(airplaneInformationDialog(airplane)));
-            },
-          ),
+          primary: false,
+          itemCount: airplanes.length,
+          itemBuilder: (ctx, int index) {
+            Airplane airplane = airplanes[index];
+            return ItemCard(
+                title: airplane.name,
+                subtitle: airplane.model,
+                onTap: () => Get.dialog(airplaneInformationDialog(airplane)));
+          },
         ),
       ),
     );
   }
 
   Widget airplaneInformationDialog(Airplane airplane) {
-    return AlertDialog(
-        title: const Text("Airplane Information",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30)),
-        content: SizedBox(
+    return Dialog(
+        child: Container(
+            padding: const EdgeInsets.all(20),
             height: 600,
             width: 1200,
             child: AirplaneInfoPage(
@@ -93,8 +88,7 @@ class AirplanesPage extends GetView<AirplanesPageController> {
   }
 
   Widget backgroundImage() {
-    return Positioned.fill(
-        child: Card(
+    return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
         side: BorderSide(color: Colors.black.withOpacity(.2), width: 2),
@@ -103,7 +97,7 @@ class AirplanesPage extends GetView<AirplanesPageController> {
       child: ClipRRect(
           borderRadius: const BorderRadius.all(Radius.circular(20)),
           child: Image.asset("assets/gifs/airplane.gif", fit: BoxFit.fill)),
-    ));
+    );
   }
 
   Widget toolbarMenu() {
@@ -114,11 +108,9 @@ class AirplanesPage extends GetView<AirplanesPageController> {
   Widget decorationPage() {
     return Expanded(
         child: Stack(fit: StackFit.expand, children: [
-      backgroundImage(),
-      Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 15,
-        ),
+      Positioned.fill(child: backgroundImage()),
+      Positioned(
+        left: 10,
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Texts.pageTitle("Airplanes"),
           Texts.timeText(),
@@ -130,16 +122,10 @@ class AirplanesPage extends GetView<AirplanesPageController> {
   @override
   Widget build(BuildContext context) {
     Get.put(AirplanesPageController());
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+    return Column(children: [
       decorationPage(),
-      Expanded(
-          child: Padding(
-              padding: const EdgeInsets.all(0),
-              child: Obx(
-                () => Column(
-                  children: [toolbarMenu(), itemsList()],
-                ),
-              )))
+      toolbarMenu(),
+      Obx(itemsList),
     ]);
   }
 }

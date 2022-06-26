@@ -8,20 +8,16 @@ import '../models.dart';
 class AddFlightPage extends GetView<AddFlightPageController> {
   const AddFlightPage({Key? key}) : super(key: key);
 
-  AppBar appbar() {
-    return AppBar(
-      title: const Text("Add Flight"),
-    );
-  }
+  AppBar appbar() => AppBar(
+        title: const Text("Add Flight"),
+      );
 
-  Widget addButton() {
-    return ElevatedButton(
-        onPressed: () {
-          controller.addFlight();
-          Get.back();
-        },
-        child: const Text("Add", style: TextStyle(fontSize: 20)));
-  }
+  Widget addButton() => ElevatedButton(
+      onPressed: () {
+        controller.addFlight();
+        Get.back();
+      },
+      child: const Text("Add", style: TextStyle(fontSize: 20)));
 
   Widget priceInput() {
     return TextFormField(

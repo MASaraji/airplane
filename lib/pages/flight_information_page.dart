@@ -6,58 +6,60 @@ import '../widgets/texts.dart';
 
 class FlightInformationPage extends StatelessWidget {
   final Flight flight;
+
   const FlightInformationPage({Key? key, required this.flight})
       : super(key: key);
+
   Widget itemsList() {
     List tickets = flight.tickets;
     return Card(
       elevation: 10,
+      surfaceTintColor: Colors.white,
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
           side: BorderSide(color: Colors.black.withOpacity(.2), width: 2)),
-      child: Container(
-        decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.all(Radius.circular(12))),
+      child: ListView.builder(
         padding: const EdgeInsets.all(10),
-        child: ListView.builder(
-          primary: false,
-          itemCount: tickets.length,
-          itemBuilder: (ctx, int index) {
-            Ticket ticket = tickets[index];
-            return ItemCard(
-                title: ticket.passenger.name,
-                subtitle: ticket.passenger.nationalCode);
-          },
-        ),
+        primary: false,
+        itemCount: tickets.length,
+        itemBuilder: (ctx, int index) {
+          Ticket ticket = tickets[index];
+          return ItemCard(
+              title: ticket.passenger.name,
+              subtitle: ticket.passenger.nationalCode);
+        },
       ),
     );
   }
 
   Widget flightInformationPriceBox() {
     return TextField(
+        readOnly: true,
         controller: TextEditingController(text: flight.price.toString()),
         decoration: const InputDecoration(
             border: OutlineInputBorder(), label: Text("Price")));
   }
 
-  Widget flightInformationDepartTimeBox() {
+  Widget flightInformationDepartTimeBox(BuildContext ctx) {
     return TextField(
+        readOnly: true,
         controller:
-            TextEditingController(text: flight.departureTime.toString()),
+            TextEditingController(text: flight.departureTime.format(ctx)),
         decoration: const InputDecoration(
             border: OutlineInputBorder(), label: Text("Depart Time")));
   }
 
-  Widget flightInformationLandingTimeBox() {
+  Widget flightInformationLandingTimeBox(BuildContext ctx) {
     return TextField(
-        controller: TextEditingController(text: flight.landingTime.toString()),
+        readOnly: true,
+        controller: TextEditingController(text: flight.landingTime.format(ctx)),
         decoration: const InputDecoration(
             border: OutlineInputBorder(), label: Text("Landing Time")));
   }
 
   Widget flightInformationAirplaneBox() {
     return TextField(
+        readOnly: true,
         controller: TextEditingController(text: flight.airplane?.name),
         decoration: const InputDecoration(
             border: OutlineInputBorder(), label: Text("Airplane")));
@@ -65,6 +67,7 @@ class FlightInformationPage extends StatelessWidget {
 
   Widget flightInformationOriginCityBox() {
     return TextField(
+        readOnly: true,
         controller: TextEditingController(text: flight.originCity?.name),
         decoration: const InputDecoration(
             border: OutlineInputBorder(), label: Text("Origin City")));
@@ -72,12 +75,13 @@ class FlightInformationPage extends StatelessWidget {
 
   Widget flightInformationDestinationCityBox() {
     return TextField(
+        readOnly: true,
         controller: TextEditingController(text: flight.destinationCity?.name),
         decoration: const InputDecoration(
             border: OutlineInputBorder(), label: Text("Destination City")));
   }
 
-  Widget flightInformationBox() {
+  Widget flightInformationBox(BuildContext ctx) {
     return SizedBox(
       height: 700,
       width: 700,
@@ -92,9 +96,9 @@ class FlightInformationPage extends StatelessWidget {
               flex: 3,
               child: Row(
                 children: [
-                  Expanded(flex: 5, child: flightInformationAirplaneBox()),
+                  Expanded(flex: 6, child: flightInformationAirplaneBox()),
                   const Spacer(),
-                  Expanded(flex: 1, child: flightInformationPriceBox()),
+                  Expanded(flex: 2, child: flightInformationPriceBox()),
                 ],
               )),
           const Spacer(),
@@ -102,9 +106,10 @@ class FlightInformationPage extends StatelessWidget {
               flex: 3,
               child: Row(
                 children: [
-                  Expanded(flex: 5, child: flightInformationDepartTimeBox()),
+                  Expanded(flex: 5, child: flightInformationDepartTimeBox(ctx)),
                   const Spacer(),
-                  Expanded(flex: 5, child: flightInformationLandingTimeBox()),
+                  Expanded(
+                      flex: 5, child: flightInformationLandingTimeBox(ctx)),
                 ],
               )),
           const Spacer(),
@@ -127,6 +132,6 @@ class FlightInformationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return flightInformationBox();
+    return flightInformationBox(context);
   }
 }

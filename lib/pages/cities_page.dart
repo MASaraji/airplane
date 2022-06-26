@@ -16,22 +16,18 @@ class CitiesPage extends GetView<CitiesPageController> {
     return Expanded(
       child: Card(
         elevation: 10,
+        surfaceTintColor: Colors.white,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
             side: BorderSide(color: Colors.black.withOpacity(.2), width: 2)),
-        child: Container(
-          decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(Radius.circular(12))),
+        child: ListView.builder(
           padding: const EdgeInsets.all(10),
-          child: ListView.builder(
-            primary: false,
-            itemCount: cities.length,
-            itemBuilder: (ctx, int index) {
-              City city = cities[index];
-              return ItemCard(title: city.name, subtitle: city.country);
-            },
-          ),
+          primary: false,
+          itemCount: cities.length,
+          itemBuilder: (ctx, int index) {
+            City city = cities[index];
+            return ItemCard(title: city.name, subtitle: city.country);
+          },
         ),
       ),
     );
@@ -50,7 +46,7 @@ class CitiesPage extends GetView<CitiesPageController> {
     return IconButton(
       splashRadius: 25,
       onPressed: () =>
-          Get.toNamed("/addCityPage")?.then((_)=>controller.getCities()),
+          Get.toNamed("/addCityPage")?.then((_) => controller.getCities()),
       tooltip: "Add city",
       icon: const Icon(Icons.add),
     );
@@ -89,7 +85,7 @@ class CitiesPage extends GetView<CitiesPageController> {
 
   Widget searchBox() {
     return TextField(
-      autofocus:true,
+      autofocus: true,
       onChanged: (pattern) => controller.getCities(pattern),
       decoration: const InputDecoration(
           border: OutlineInputBorder(),
@@ -114,15 +110,15 @@ class CitiesPage extends GetView<CitiesPageController> {
         endButton: changeOrderButton());
   }
 
-  Widget decorationPage() {
+  Widget pageDecoration() {
     return Expanded(
         flex: 4,
         child: Stack(
           fit: StackFit.expand,
           children: [
             Positioned.fill(child: backgroundImage()),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            Positioned(
+              left: 10,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -184,16 +180,15 @@ class CitiesPage extends GetView<CitiesPageController> {
   @override
   Widget build(BuildContext context) {
     Get.put(CitiesPageController());
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+    return Column(children: [
       Expanded(
           child: Row(children: [
-        decorationPage(),
+        pageDecoration(),
         Expanded(
-            flex: 1,
             child: Column(children: [
-              Obx(citiesNumberWidget),
-              clockWidget(),
-            ]))
+          Obx(citiesNumberWidget),
+          clockWidget(),
+        ]))
       ])),
       Expanded(
           child: Obx(() => Column(children: [toolbarMenu(), itemsList()]))),

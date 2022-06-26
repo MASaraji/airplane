@@ -1,3 +1,4 @@
+import 'package:airplane/controller/passenger_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,10 +15,10 @@ class AddTicketPageController extends GetxController {
   int? cap;
   int? soldedTicket;
 
-  late String firstName;
-  late String lastName;
-  late String nationalCode;
-  late int phone;
+  String? firstName;
+  String? lastName;
+  String? nationalCode;
+  int? phone;
 
   void setFlight(Flight flight_) {
     flight = flight_;
@@ -32,13 +33,40 @@ class AddTicketPageController extends GetxController {
     update();
   }
 
+  void clearBoxes() {
+    flight = null;
+    airplane = null;
+    departTime = null;
+    arrivalTime = null;
+    price = null;
+    originCity = null;
+    destinationCity = null;
+    cap = null;
+    soldedTicket = null;
+    firstName = null;
+    lastName = null;
+    nationalCode = null;
+    phone = null;
+    update();
+  }
+
   void addPassenger() {
-    Passenger passenger = Passenger(
-      name: "$firstName $lastName",
-      nationalCode: nationalCode,
-    );
-    passenger.addPhone(phone);
+    Passenger passenger;
+    if (PassengerController.passengerIsExist(nationalCode!)) {
+      passenger = PassengerController.getPassenger(nationalCode!);
+      if (!passenger.phones.contains(phone)) {
+        passenger.addPhone(phone as int);
+      }
+    } else {
+      passenger = Passenger(
+        name: "$firstName $lastName",
+        nationalCode: nationalCode as String,
+      );
+      passenger.addPhone(phone!);
+      PassengerController.addPassenger(passenger);
+    }
     Ticket ticket = Ticket(passenger: passenger, price: price as double);
     flight!.addTicket(ticket);
+    clearBoxes();
   }
 }

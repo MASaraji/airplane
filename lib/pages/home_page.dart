@@ -1,6 +1,5 @@
 import "package:flutter/material.dart";
 import 'package:get/get.dart';
-
 import '../config.dart';
 import '../controller/main_page_controller.dart';
 
@@ -19,7 +18,7 @@ class HomePage extends GetView<MainPageController> {
       contentPadding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
       leading: Icon(icon),
       title: Text(title,
-          style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w500)),
+          style: const TextStyle(fontSize: 25, fontWeight: FontWeight.w500)),
       textColor: Config.mainDrawerButtonColor,
       iconColor: Config.mainDrawerButtonColor,
       style: ListTileStyle.drawer,
@@ -50,33 +49,29 @@ class HomePage extends GetView<MainPageController> {
   Widget mainDrawer() {
     return Expanded(
       flex: 3,
-      child: Container(
-        margin: const EdgeInsets.all(10),
-        child: Card(
-          color: Config.mainDrawerColor,
-          elevation: 10,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-              side: BorderSide(color: Colors.black.withOpacity(.2), width: 2)),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const SizedBox(height: 50),
-              avatar(),
-              const SizedBox(height: 70),
-              Expanded(
-                child: Padding(
+      child: Card(
+        margin: const EdgeInsets.only(top: 8, bottom: 8, left: 8),
+        color: Config.mainDrawerColor,
+        elevation: 10,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+            side: BorderSide(color: Colors.black.withOpacity(.2), width: 2)),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const SizedBox(height: 50),
+            avatar(),
+            const SizedBox(height: 70),
+            Expanded(
+              child: ListView.builder(
                   padding: const EdgeInsets.all(8.0),
-                  child: ListView.builder(
-                      itemBuilder: ((context, index) => drawerButton(
-                          menuItems[index][0], //title
-                          menuItems[index][1], //icon
-                          menuItems[index][2])), //pageNumber
-                      itemCount: menuItems.length),
-                ),
-              ),
-            ],
-          ),
+                  itemBuilder: ((context, index) => drawerButton(
+                      menuItems[index][0], //title
+                      menuItems[index][1], //icon
+                      menuItems[index][2])), //pageNumber
+                  itemCount: menuItems.length),
+            ),
+          ],
         ),
       ),
     );
@@ -89,11 +84,9 @@ class HomePage extends GetView<MainPageController> {
 
   Widget bodyPage() {
     return Expanded(
-        flex: 8,
+        flex: 9,
         child: Container(
-            padding: const EdgeInsets.only(top: 8.0, bottom: 8, right: 8),
-            color: Colors.white,
-            child: controller.currentPage));
+            padding: const EdgeInsets.all(5), child: controller.currentPage));
   }
 
   @override

@@ -3,7 +3,6 @@ import 'package:airplane/widgets/item_card.dart';
 import 'package:airplane/widgets/toolbar.dart';
 import "package:flutter/material.dart";
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
 import '../models.dart';
 import '../widgets/texts.dart';
@@ -16,44 +15,36 @@ class FlightsOfDayPage extends GetView<FlightsOfDayPageController> {
     List flights = controller.flights;
     return Expanded(
       child: Card(
+        surfaceTintColor: Colors.white,
         elevation: 10,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
             side: BorderSide(color: Colors.black.withOpacity(.2), width: 2)),
-        child: Container(
-          decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(Radius.circular(10))),
+        child: ListView.builder(
           padding: const EdgeInsets.all(10),
-          child: ListView.builder(
-            primary: false,
-            itemCount: flights.length,
-            itemBuilder: (ctx, int index) {
-              Flight flight = flights[index];
-              return ItemCard(
-                onTap: () => Get.dialog(AlertDialog(
-                    content: FlightInformationPage(flight: flight))),
-                trailing:
-                    "${flight.originCity!.name} => ${flight.destinationCity!.name}",
-                title: flight.flightName,
-                subtitle: flight.departDate,
-              );
-            },
-          ),
+          primary: false,
+          itemCount: flights.length,
+          itemBuilder: (ctx, int index) {
+            Flight flight = flights[index];
+            return ItemCard(
+              onTap: () => Get.dialog(flightInformationDialog(flight)),
+              trailing:
+                  "${flight.originCity!.name} => ${flight.destinationCity!.name}",
+              title: flight.flightName,
+              subtitle: flight.departDate,
+            );
+          },
         ),
       ),
     );
   }
 
-  Widget pageTitle(String title) {
-    return Text(
-      title,
-      style: const TextStyle(
-          fontSize: 70,
-          fontWeight: FontWeight.bold,
-          color: Colors.white,
-          fontFamily: "lato"),
-    );
+  Widget flightInformationDialog(Flight flight) {
+    return Dialog(
+        child: Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: FlightInformationPage(flight: flight),
+    ));
   }
 
   Widget changeTimeButton(BuildContext context) {
@@ -64,14 +55,11 @@ class FlightsOfDayPage extends GetView<FlightsOfDayPageController> {
             initialDate: controller.dateSpecial,
             firstDate: DateTime(2020),
             lastDate: DateTime(2025));
-        controller.dateSpecial = pickedDate ?? controller.dateSpecial;
-        pickedDate != null
-            ? controller
-                .getFlights(DateFormat(" EEEE, MM, yyyy").format(pickedDate))
-            : null;
-        controller.getFlights(controller.date);
+
+        controller.setDateSpecial(pickedDate);
+        controller.getFlights(pickedDate);
       },
-      tooltip: "",
+      tooltip: "Change Time",
       icon: const Icon(Icons.calendar_today_rounded),
     );
   }
@@ -100,43 +88,32 @@ class FlightsOfDayPage extends GetView<FlightsOfDayPageController> {
     );
   }
 
+  Widget pageDecoration() {
+    return Expanded(
+        child: Stack(
+      fit: StackFit.expand,
+      children: [
+        Positioned.fill(child: backgroundImage()),
+        Positioned(
+            left: 10,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Texts.pageTitle("Flights of day"),
+                Texts.timeText(),
+              ],
+            )),
+      ],
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     Get.put(FlightsOfDayPageController());
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Expanded(
-          child: Stack(
-        fit: StackFit.expand,
-        children: [
-          Positioned.fill(child: backgroundImage()),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 10),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Texts.pageTitle("Flights of day"),
-                      Texts.timeText(),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          )
-        ],
-      )),
-      Expanded(
-          child: Padding(
-        padding: const EdgeInsets.all(0),
-        child: Column(
-          children: [toolbarMenu(context), Obx(itemsList)],
-        ),
-      ))
+    return Column(children: [
+      pageDecoration(),
+      toolbarMenu(context),
+      Obx(itemsList),
     ]);
   }
 }

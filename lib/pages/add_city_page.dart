@@ -6,53 +6,46 @@ import '../widgets/snackbar.dart';
 class AddCityPage extends GetView<AddCityPageController> {
   const AddCityPage({Key? key}) : super(key: key);
 
-  Widget background() {
-    return Image.asset("assets/images/city.png", fit: BoxFit.fill);
-  }
+  Widget background() =>
+      Image.asset("assets/images/city.png", fit: BoxFit.fill);
 
-  AppBar appbar() {
-    return AppBar(
-      title: const Text("Add City"),
-    );
-  }
+  AppBar appbar() => AppBar(
+        title: const Text("Add City"),
+      );
 
-  Widget cityNameInput() {
-    return TextFormField(
-      autofocus: true,
-      textInputAction: TextInputAction.next,
-      controller: controller.nameController,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      validator: (text) {
-        if (text == null || text.isEmpty) {
-          return "Can't be empty";
-        }
-        return null;
-      },
-      decoration: const InputDecoration(
-        border: OutlineInputBorder(),
-        labelText: "Name",
-        hintText: "Enter Name",
-      ),
-    );
-  }
-
-  Widget addButton() {
-    return ElevatedButton(
-        onPressed: () {
-          if (controller.getName().isEmpty) {
-            Snackbar.snackbarError("Please enter city name.");
-          } else {
-            bool success = controller.addCity();
-            if (success == true) {
-              Get.back();
-            } else {
-              Snackbar.snackbarError(
-                  "City already exist. Please change city name.");
-            }
+  Widget cityNameInput() => TextFormField(
+        autofocus: true,
+        textInputAction: TextInputAction.next,
+        controller: controller.nameController,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        validator: (text) {
+          if (text == null || text.isEmpty) {
+            return "Can't be empty";
           }
+          return null;
         },
-        child: const Text("Add", style: TextStyle(fontSize: 20)));
-  }
+        decoration: const InputDecoration(
+          border: OutlineInputBorder(),
+          labelText: "Name",
+          hintText: "Enter Name",
+        ),
+      );
+
+  Widget addButton() => ElevatedButton(
+      onPressed: () {
+        if (controller.getName().isEmpty) {
+          Snackbar.snackbarError("Please enter city name.");
+        } else {
+          bool success = controller.addCity();
+          if (success == true) {
+            Get.back();
+          } else {
+            Snackbar.snackbarError(
+                "City already exist. Please change city name.");
+          }
+        }
+      },
+      child: const Text("Add", style: TextStyle(fontSize: 20)));
 
   @override
   Widget build(BuildContext context) {
@@ -61,15 +54,17 @@ class AddCityPage extends GetView<AddCityPageController> {
         appBar: appbar(),
         body: Stack(children: [
           Positioned.fill(child: background()),
-          Column(
-            children: [
-              Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-                  child: cityNameInput()),
-              SizedBox(width: 150, height: 50, child: addButton()),
-            ],
-          )
+          Positioned(
+              left: 50,
+              right: 50,
+              top: 20,
+              child: Column(
+                children: [
+                  cityNameInput(),
+                  const SizedBox(height: 20),
+                  SizedBox(width: 150, height: 50, child: addButton()),
+                ],
+              ))
         ]));
   }
 }

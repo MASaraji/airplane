@@ -12,23 +12,21 @@ class AirplaneInfoPage extends StatelessWidget {
     return Expanded(
       flex: 1,
       child: Card(
+        surfaceTintColor: Colors.white,
         elevation: 10,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
             side: BorderSide(color: Colors.blue.withOpacity(.5), width: 2)),
-        child: Container(
-          color: Colors.white,
+        child: ListView.builder(
           padding: const EdgeInsets.all(10),
-          child: ListView.builder(
-            primary: false,
-            itemCount: 5,
-            itemBuilder: (ctx, int index) {
-              return const ItemCard(
-                title: "hello",
-                subtitle: "hello",
-              );
-            },
-          ),
+          primary: false,
+          itemCount: 5,
+          itemBuilder: (ctx, int index) {
+            return const ItemCard(
+              title: "hello",
+              subtitle: "hello",
+            );
+          },
         ),
       ),
     );
