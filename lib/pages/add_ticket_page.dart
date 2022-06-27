@@ -247,17 +247,15 @@ class AddTicketPage extends GetView<AddTicketPageController> {
   @override
   Widget build(BuildContext context) {
     Get.put(AddTicketPageController());
-    return Expanded(
-      child: Column(
-        children: [
-          GetBuilder<AddTicketPageController>(
-              init: controller, builder: (ctx) => flightInfo(context)),
-          const SizedBox(height: 20),
-          passengerInfo(),
-          reserveButton(),
-          const SizedBox(height: 40)
-        ],
-      ),
+    return Column(
+      children: [
+        GetBuilder<AddTicketPageController>(
+            init: controller, builder: (ctx) => flightInfo(context)),
+        const SizedBox(height: 20),
+        passengerInfo(),
+        reserveButton(),
+        const SizedBox(height: 40)
+      ],
     );
   }
 }

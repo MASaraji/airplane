@@ -19,32 +19,28 @@ class AddFlightPage extends GetView<AddFlightPageController> {
       },
       child: const Text("Add", style: TextStyle(fontSize: 20)));
 
-  Widget priceInput() {
-    return TextFormField(
-        inputFormatters: [
-          FilteringTextInputFormatter.allow(RegExp(r"^[0-9]+\.?[0-9]*$"))
-        ],
-        onChanged: (value) => controller.addPrice(value),
-        textInputAction: TextInputAction.next,
-        autovalidateMode: AutovalidateMode.onUserInteraction,
-        decoration: const InputDecoration(
-            border: OutlineInputBorder(), labelText: "Price"));
-  }
+  Widget priceInput() => TextFormField(
+          inputFormatters: [
+            FilteringTextInputFormatter.allow(RegExp(r"^[0-9]+\.?[0-9]*$"))
+          ],
+          onChanged: (value) => controller.addPrice(value),
+          textInputAction: TextInputAction.next,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          decoration: const InputDecoration(
+              border: OutlineInputBorder(), labelText: "Price"));
 
-  Widget departTimeInput(BuildContext ctx) {
-    return TextField(
-      controller:
-          TextEditingController(text: controller.departTime.format(ctx)),
-      readOnly: true,
-      decoration: const InputDecoration(
-          border: OutlineInputBorder(), label: Text("Depart Time")),
-      onTap: () async {
-        TimeOfDay? value =
-            await showTimePicker(context: ctx, initialTime: TimeOfDay.now());
-        controller.addDepartTime(value);
-      },
-    );
-  }
+  Widget departTimeInput(BuildContext ctx) => TextField(
+        controller:
+            TextEditingController(text: controller.departTime.format(ctx)),
+        readOnly: true,
+        decoration: const InputDecoration(
+            border: OutlineInputBorder(), label: Text("Depart Time")),
+        onTap: () async {
+          TimeOfDay? value =
+              await showTimePicker(context: ctx, initialTime: TimeOfDay.now());
+          controller.addDepartTime(value);
+        },
+      );
 
   Widget arrivalTimeInput(BuildContext ctx) {
     return TextField(
@@ -122,38 +118,38 @@ class AddFlightPage extends GetView<AddFlightPageController> {
         body: Stack(children: [
           GetBuilder<AddFlightPageController>(
             init: controller,
-            builder: (ctx) => Column(
-              children: [
-                Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 50, vertical: 20),
-                    child: Column(children: [
-                      Row(children: [
-                        Expanded(flex: 10, child: priceInput()),
-                        const Spacer(),
-                        Expanded(
-                          flex: 10,
-                          child: departDateInput(context),
-                        )
-                      ]),
-                      const SizedBox(height: 20),
-                      Row(children: [
-                        Expanded(flex: 10, child: departTimeInput(context)),
-                        const Spacer(),
-                        Expanded(flex: 10, child: arrivalTimeInput(context)),
-                      ]),
-                      const SizedBox(height: 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          airplaneDropBox(),
-                          originCityDropBox(),
-                          destinationCityDropBox()
-                        ],
-                      )
-                    ])),
-                SizedBox(width: 150, height: 50, child: addButton()),
-              ],
+            builder: (ctx) => Positioned(
+              left: 50,
+              top: 10,
+              right: 50,
+              child: Column(
+                children: [
+                  Row(children: [
+                    Expanded(flex: 10, child: priceInput()),
+                    const Spacer(),
+                    Expanded(
+                      flex: 10,
+                      child: departDateInput(context),
+                    )
+                  ]),
+                  const SizedBox(height: 20),
+                  Row(children: [
+                    Expanded(flex: 10, child: departTimeInput(context)),
+                    const Spacer(),
+                    Expanded(flex: 10, child: arrivalTimeInput(context)),
+                  ]),
+                  const SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      airplaneDropBox(),
+                      originCityDropBox(),
+                      destinationCityDropBox()
+                    ],
+                  ),
+                  SizedBox(width: 150, height: 50, child: addButton()),
+                ],
+              ),
             ),
           ),
         ]));
