@@ -101,13 +101,8 @@ class AddTicketPage extends GetView<AddTicketPageController> {
 
   Widget flightInfo(BuildContext ctx) {
     return Expanded(
-        flex: 2,
+        flex: 5,
         child: Card(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-              side: BorderSide(color: Colors.black.withOpacity(.2), width: 2)),
-          elevation: 10,
-          surfaceTintColor: Colors.white,
           child: Padding(
             padding: const EdgeInsets.all(17.0),
             child: Column(
@@ -192,7 +187,7 @@ class AddTicketPage extends GetView<AddTicketPageController> {
 
   Widget passengerInfo() {
     return Expanded(
-      flex: 2,
+      flex: 4,
       child: Card(
         surfaceTintColor: Colors.white,
         elevation: 10,
@@ -252,7 +247,8 @@ class AddTicketPage extends GetView<AddTicketPageController> {
         GetBuilder<AddTicketPageController>(
             init: controller, builder: (ctx) => flightInfo(context)),
         const SizedBox(height: 20),
-        passengerInfo(),
+        GetBuilder<AddTicketPageController>(
+            init: controller, builder: (ctx) => passengerInfo()),
         reserveButton(),
         const SizedBox(height: 40)
       ],

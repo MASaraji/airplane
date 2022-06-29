@@ -13,8 +13,15 @@ GetMaterialApp app = GetMaterialApp(
     initialRoute: "/",
     getPages: routes,
     theme: ThemeData(
+      cardTheme: CardTheme(
+          surfaceTintColor: Colors.white,
+          elevation: 10,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+              side: BorderSide(color: Colors.black.withOpacity(.2), width: 2))),
       appBarTheme: const AppBarTheme(centerTitle: true),
       useMaterial3: true,
+      scaffoldBackgroundColor: Colors.white,
       primaryColor: Colors.blue,
     ));
 

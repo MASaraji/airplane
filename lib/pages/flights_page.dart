@@ -16,11 +16,6 @@ class FlightsPage extends GetView<FlightsPageController> {
     List flights = controller.flights;
     return Expanded(
       child: Card(
-        elevation: 10,
-        surfaceTintColor: Colors.white,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-            side: BorderSide(color: Colors.black.withOpacity(.2), width: 2)),
         child: ListView.builder(
           padding: const EdgeInsets.all(10),
           primary: false,

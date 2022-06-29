@@ -15,11 +15,6 @@ class CitiesPage extends GetView<CitiesPageController> {
     List cities = controller.cities;
     return Expanded(
       child: Card(
-        elevation: 10,
-        surfaceTintColor: Colors.white,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-            side: BorderSide(color: Colors.black.withOpacity(.2), width: 2)),
         child: ListView.builder(
           padding: const EdgeInsets.all(10),
           primary: false,
@@ -136,7 +131,6 @@ class CitiesPage extends GetView<CitiesPageController> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
-      elevation: 10,
       child: ClipRRect(
           borderRadius: const BorderRadius.all(Radius.circular(20)),
           child: Image.asset("assets/images/background_city.png",
@@ -146,9 +140,7 @@ class CitiesPage extends GetView<CitiesPageController> {
 
   Widget citiesNumberWidget() {
     return Expanded(
-        flex: 1,
         child: Card(
-            elevation: 10,
             color: Colors.lightBlueAccent.shade700,
             child: Stack(fit: StackFit.expand, children: [
               Column(children: [
@@ -160,23 +152,20 @@ class CitiesPage extends GetView<CitiesPageController> {
 
   Widget clockWidget() {
     return Expanded(
-        flex: 1,
         child: Card(
-          elevation: 10,
-          color: const Color.fromARGB(255, 107, 170, 241),
-          child: Stack(
-            fit: StackFit.expand,
-            children: const [
-              AnalogClock(
-                textScaleFactor: 1.5,
-                tickColor: Colors.white,
-              )
-            ],
-          ),
-        ));
+      color: const Color.fromARGB(255, 107, 170, 241),
+      child: Stack(
+        fit: StackFit.expand,
+        children: const [
+          AnalogClock(
+            textScaleFactor: 1.5,
+            tickColor: Colors.white,
+          )
+        ],
+      ),
+    ));
   }
 
-  // Widg
   @override
   Widget build(BuildContext context) {
     Get.put(CitiesPageController());

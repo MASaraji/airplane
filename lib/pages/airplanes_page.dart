@@ -1,3 +1,4 @@
+import 'package:airplane/controller/airplane_controller.dart';
 import 'package:airplane/pages/airplane_info_page.dart';
 import 'package:airplane/widgets/texts.dart';
 import 'package:airplane/widgets/toolbar.dart';
@@ -15,11 +16,6 @@ class AirplanesPage extends GetView<AirplanesPageController> {
     List airplanes = controller.airplanes;
     return Expanded(
       child: Card(
-        elevation: 10,
-        surfaceTintColor: Colors.white,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-            side: BorderSide(color: Colors.black.withOpacity(.2), width: 2)),
         child: ListView.builder(
           padding: const EdgeInsets.all(10),
           primary: false,

@@ -52,10 +52,6 @@ class HomePage extends GetView<MainPageController> {
       child: Card(
         margin: const EdgeInsets.only(top: 8, bottom: 8, left: 8),
         color: Config.mainDrawerColor,
-        elevation: 10,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-            side: BorderSide(color: Colors.black.withOpacity(.2), width: 2)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

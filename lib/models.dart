@@ -7,7 +7,7 @@ class Flight {
   final TimeOfDay departureTime;
   final TimeOfDay landingTime;
   final Airplane? airplane;
-  List<Ticket> tickets = [];
+  late List<Ticket?> tickets = [];
   final City? originCity;
   final City? destinationCity;
   Flight(

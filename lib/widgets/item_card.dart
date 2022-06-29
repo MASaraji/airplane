@@ -18,9 +18,6 @@ class ItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      surfaceTintColor: Config.itemCardSurfaceTint,
-      elevation: 10,
-      //clipBehavior: Clip.hardEdge,
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
           side: BorderSide(color: Colors.black.withOpacity(.4), width: 2)),

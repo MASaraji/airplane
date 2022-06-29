@@ -1,35 +1,44 @@
 import 'package:fl_chart/fl_chart.dart';
 import "package:flutter/material.dart";
+import 'package:get/get.dart';
 
 import '../models.dart';
 import '../widgets/item_card.dart';
+import 'flight_information_page.dart';
 
 class AirplaneInfoPage extends StatelessWidget {
   final Airplane airplane;
   const AirplaneInfoPage({Key? key, required this.airplane}) : super(key: key);
 
   Widget itemsList() {
+    List flights = airplane.flights;
     return Expanded(
-      flex: 1,
       child: Card(
-        surfaceTintColor: Colors.white,
-        elevation: 10,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-            side: BorderSide(color: Colors.blue.withOpacity(.5), width: 2)),
         child: ListView.builder(
           padding: const EdgeInsets.all(10),
           primary: false,
-          itemCount: 5,
+          itemCount: flights.length,
           itemBuilder: (ctx, int index) {
-            return const ItemCard(
-              title: "hello",
-              subtitle: "hello",
+            Flight flight = flights[index];
+            return ItemCard(
+              onTap: () => Get.dialog(flightInformationDialog(flight)),
+              trailing:
+                  "${flight.originCity!.name} to ${flight.destinationCity!.name}",
+              title: flight.flightName,
+              subtitle: flight.departDate,
             );
           },
         ),
       ),
     );
+  }
+
+  Widget flightInformationDialog(Flight flight) {
+    return Dialog(
+        child: Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: FlightInformationPage(flight: flight),
+    ));
   }
 
   Widget airplaneNameBox() {

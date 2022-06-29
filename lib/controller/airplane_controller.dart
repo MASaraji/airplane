@@ -14,15 +14,7 @@ class AirplaneController {
     return true;
   }
 
-  static int getNumAirplane() {
-    return airplanes.length;
-  }
-
   static List getAirplanes() {
     return airplanes.values.toList();
-  }
-
-  static Airplane getAirplane(int index) {
-    return airplanes.values.toList()[index];
   }
 }

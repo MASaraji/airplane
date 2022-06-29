@@ -5,6 +5,7 @@ class FlightsController {
   static int lastAddedAirplane = 0;
 
   static void addFlight(String date, Flight flight) {
+    flight.airplane!.flights.add(flight);
     if (flights.containsKey(date)) {
       flights[date]!.add(flight);
       return;
@@ -27,7 +28,7 @@ class FlightsController {
     return flights_;
   }
 
-  static int getFlightNum(){
+  static int getFlightNum() {
     return lastAddedAirplane++;
   }
 }
