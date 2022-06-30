@@ -15,13 +15,9 @@ class CitiesController {
     return true;
   }
 
-  static City getCity(int index) {
-    return cities.values.toList()[index];
-  }
+  static City getCity(int index) => cities.values.toList()[index];
 
-  static int getNumCity() {
-    return cities.length;
-  }
+  static int getNumCity() => cities.length;
 
   static List<City> getCitiesPattern(String pattern) {
     List<City> result = [];

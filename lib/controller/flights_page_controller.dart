@@ -11,7 +11,5 @@ class FlightsPageController extends GetxController {
     flights.value = FlightsController.getFlights();
   }
 
-  void getFlight() {
-    flights.value = FlightsController.getFlights().toList();
-  }
+  void getFlight() => flights.value = FlightsController.getFlights().toList();
 }

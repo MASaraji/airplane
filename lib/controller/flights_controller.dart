@@ -14,9 +14,7 @@ class FlightsController {
     flights[date] = list;
   }
 
-  static List getFlightByDate(String date) {
-    return flights[date] ?? [];
-  }
+  static List getFlightByDate(String date) => flights[date] ?? [];
 
   static List getFlights() {
     List flights_ = [];
@@ -28,7 +26,5 @@ class FlightsController {
     return flights_;
   }
 
-  static int getFlightNum() {
-    return lastAddedAirplane++;
-  }
+  static int getFlightNum() => lastAddedAirplane++;
 }

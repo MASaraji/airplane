@@ -9,9 +9,7 @@ class CitiesPageController extends GetxController {
       (a, b) => a.name.compareTo(b.name),
     );
 
-  void changeSearchBoxMode() {
-    showSearchBox.value = !showSearchBox.value;
-  }
+  void changeSearchBoxMode() => showSearchBox.value = !showSearchBox.value;
 
   void getCities([String pattern = ""]) {
     if (pattern == "") {

@@ -13,7 +13,5 @@ class FlightsOfDayPageController extends GetxController {
     flights.value = FlightsController.getFlightByDate(date);
   }
 
-  void setDateSpecial(DateTime? date_) {
-    dateSpecial = date_ ?? dateSpecial;
-  }
+  void setDateSpecial(DateTime? date_) => dateSpecial = date_ ?? dateSpecial;
 }

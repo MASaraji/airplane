@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../controller/add_flight_page_controller.dart';
 import '../models.dart';
+import '../widgets/snackbar.dart';
 
 class AddFlightPage extends GetView<AddFlightPageController> {
   const AddFlightPage({Key? key}) : super(key: key);
@@ -14,8 +15,18 @@ class AddFlightPage extends GetView<AddFlightPageController> {
 
   Widget addButton() => ElevatedButton(
       onPressed: () {
-        controller.addFlight();
-        Get.back();
+        if (controller.airplane == null) {
+          Snackbar.snackbarError("Please choose an airplane.");
+        } else if (controller.destinationCity == null) {
+          Snackbar.snackbarError("Please choose a Destination City.");
+        } else if (controller.originCity == null) {
+          Snackbar.snackbarError("Please choose an Origin City,");
+        } else if (controller.destinationCity == controller.originCity) {
+          Snackbar.snackbarError("Origin City and Destination City is same.");
+        } else {
+          controller.addFlight();
+          Get.back();
+        }
       },
       child: const Text("Add", style: TextStyle(fontSize: 20)));
 

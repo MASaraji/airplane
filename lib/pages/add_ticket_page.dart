@@ -147,6 +147,13 @@ class AddTicketPage extends GetView<AddTicketPageController> {
 
   Widget passengerFirstNameInput() {
     return TextFormField(
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        validator: (text) {
+          if (text == null || text.isEmpty) {
+            return "Can't be empty";
+          }
+          return null;
+        },
         controller: TextEditingController(text: controller.firstName),
         textInputAction: TextInputAction.next,
         onChanged: (value) => controller.firstName = value,
@@ -156,6 +163,13 @@ class AddTicketPage extends GetView<AddTicketPageController> {
 
   Widget passengerLastNameInput() {
     return TextFormField(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      validator: (text) {
+        if (text == null || text.isEmpty) {
+          return "Can't be empty";
+        }
+        return null;
+      },
       controller: TextEditingController(text: controller.lastName),
       textInputAction: TextInputAction.next,
       onChanged: (value) => controller.lastName = value,
@@ -166,10 +180,18 @@ class AddTicketPage extends GetView<AddTicketPageController> {
 
   Widget passengerPhoneInput() {
     return TextFormField(
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        validator: (text) {
+          if (text == null || text.isEmpty) {
+            return "Can't be empty";
+          }
+          return null;
+        },
         controller: TextEditingController(text: controller.phone?.toString()),
         textInputAction: TextInputAction.next,
         inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-        onChanged: (value) => controller.phone = int.parse(value),
+        onChanged: (value) => controller.phone =
+            value == "" ? controller.phone : int.parse(value),
         decoration: const InputDecoration(
             border: OutlineInputBorder(), label: Text("Phone")));
   }
@@ -178,6 +200,13 @@ class AddTicketPage extends GetView<AddTicketPageController> {
     return TextFormField(
       controller: TextEditingController(text: controller.nationalCode),
       textInputAction: TextInputAction.next,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      validator: (text) {
+        if (text == null || text.isEmpty) {
+          return "Can't be empty";
+        }
+        return null;
+      },
       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
       onChanged: (value) => controller.nationalCode = value,
       decoration: const InputDecoration(
@@ -233,8 +262,20 @@ class AddTicketPage extends GetView<AddTicketPageController> {
         width: 150,
         child: ElevatedButton(
             onPressed: () {
-              controller.addPassenger();
-              Snackbar.snackbarSuccess("Ticket added successfully.");
+              if (controller.flight == null) {
+                Snackbar.snackbarError("Please choose a flight.");
+              } else if (controller.firstName == null) {
+                Snackbar.snackbarError("First Name is empty.");
+              } else if (controller.lastName == null) {
+                Snackbar.snackbarError("Last Name is empty");
+              } else if (controller.nationalCode == null) {
+                Snackbar.snackbarError("National code is empty.");
+              } else if (controller.phone == null) {
+                Snackbar.snackbarError("Phone is emptry");
+              } else {
+                controller.addPassenger();
+                Snackbar.snackbarSuccess("Ticket added successfully.");
+              }
             },
             child: const Text("Reserve")));
   }

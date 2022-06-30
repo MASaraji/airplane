@@ -15,7 +15,7 @@ class WelcomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(const Duration(seconds: 4), () => Get.offNamed("/mainPage"));
+    Future.delayed(const Duration(seconds: 3), () => Get.offNamed("/mainPage"));
 
     return Scaffold(
         body: Container(

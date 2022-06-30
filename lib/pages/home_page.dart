@@ -6,7 +6,10 @@ import '../controller/main_page_controller.dart';
 class HomePage extends GetView<MainPageController> {
   HomePage({Key? key}) : super(key: key);
 
-  Widget drawerButton(String title, IconData icon, int pageNumber) {
+  Widget drawerButton(
+      {required String title,
+      required IconData icon,
+      required int pageNumber}) {
     int selectedPage = controller.selectedPage;
     return ListTile(
       hoverColor: Colors.transparent,
@@ -37,15 +40,6 @@ class HomePage extends GetView<MainPageController> {
         ));
   }
 
-  final List menuItems = [
-    ["Flights of day", Icons.today_rounded, 0],
-    ["Flights", Icons.airlines_rounded, 1],
-    ["Airplanes", Icons.airplanemode_active_rounded, 2],
-    ["Cities", Icons.location_city_outlined, 3],
-    ["Add Ticket", Icons.airplane_ticket_rounded, 4],
-    ["", Icons.more_horiz_rounded, 5]
-  ];
-
   Widget mainDrawer() {
     return Expanded(
       flex: 3,
@@ -59,14 +53,14 @@ class HomePage extends GetView<MainPageController> {
             avatar(),
             const SizedBox(height: 70),
             Expanded(
-              child: ListView.builder(
-                  padding: const EdgeInsets.all(8.0),
-                  itemBuilder: ((context, index) => drawerButton(
-                      menuItems[index][0], //title
-                      menuItems[index][1], //icon
-                      menuItems[index][2])), //pageNumber
-                  itemCount: menuItems.length),
-            ),
+                child: ListView.builder(
+                    padding: const EdgeInsets.all(8.0),
+                    itemBuilder: (context, index) {
+                      List item = controller.menuItems[index];
+                      return drawerButton(
+                          icon: item[1], pageNumber: item[2], title: item[0]);
+                    },
+                    itemCount: controller.menuItems.length)),
           ],
         ),
       ),
@@ -89,7 +83,6 @@ class HomePage extends GetView<MainPageController> {
   Widget build(BuildContext context) {
     Get.put(MainPageController());
     return Scaffold(
-        //  floatingActionButton: mainFloatingActionButton(),
         body: Row(children: [
       GetBuilder(init: controller, builder: (ctx) => mainDrawer()),
       GetBuilder<MainPageController>(

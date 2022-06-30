@@ -14,7 +14,5 @@ class AirplaneController {
     return true;
   }
 
-  static List getAirplanes() {
-    return airplanes.values.toList();
-  }
+  static List getAirplanes() => airplanes.values.toList();
 }
