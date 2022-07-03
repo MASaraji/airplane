@@ -43,14 +43,6 @@ class Airplane {
   }
 }
 
-class Day {
-  List<Flight> flights = [];
-
-  void addFlight(Flight flight) {
-    flights.add(flight);
-  }
-}
-
 class City {
   final String name;
   final String country = "Iran";
@@ -58,7 +50,10 @@ class City {
 }
 
 class Year {
-  List<Month> months = [];
+  final int year;
+  List<Month> months = [for (int i = 1; i <= 12; i++) Month(month: i)];
+
+  Year({required this.year});
 }
 
 class Ticket {
@@ -68,7 +63,9 @@ class Ticket {
 }
 
 class Month {
-  List<Day> day = [];
+  final int month;
+  List day = [];
+  Month({required this.month});
 }
 
 class Discount {
