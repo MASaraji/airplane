@@ -3,7 +3,6 @@ import 'package:airplane/widgets/item_card.dart';
 import 'package:airplane/widgets/toolbar.dart';
 import "package:flutter/material.dart";
 import 'package:get/get.dart';
-
 import '../models.dart';
 import '../widgets/texts.dart';
 import 'flight_information_page.dart';

@@ -27,7 +27,7 @@ GetMaterialApp app = GetMaterialApp(
 
 List<GetPage> routes = [
   GetPage(name: "/", page: () => const WelcomePage()),
-  GetPage(name: "/mainPage", page: () => HomePage()),
+  GetPage(name: "/mainPage", page: () => const HomePage()),
   GetPage(name: "/addAirplanePage", page: () => const AddAirplanePage()),
   GetPage(name: "/addCityPage", page: () => const AddCityPage()),
   GetPage(name: "/addFlightPage", page: () => const AddFlightPage())

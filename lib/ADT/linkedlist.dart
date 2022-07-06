@@ -20,6 +20,14 @@ class LinkedList {
       temp = temp.next;
     }
   }
+
+  find(Function func){
+    Node? temp=head;
+    while(temp !=null){
+    if (func(temp.data))
+    return temp.data;
+    temp=temp.next;}
+  }
 }
 
 class Node {

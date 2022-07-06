@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../config.dart';
-
 class ItemCard extends StatelessWidget {
   final String title;
   final String subtitle;

@@ -4,7 +4,7 @@ import '../config.dart';
 import '../controller/main_page_controller.dart';
 
 class HomePage extends GetView<MainPageController> {
-  HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   Widget drawerButton(
       {required String title,

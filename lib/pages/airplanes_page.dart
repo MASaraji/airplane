@@ -1,4 +1,3 @@
-import 'package:airplane/controller/airplane_controller.dart';
 import 'package:airplane/pages/airplane_info_page.dart';
 import 'package:airplane/widgets/texts.dart';
 import 'package:airplane/widgets/toolbar.dart';
