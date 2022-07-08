@@ -1,17 +1,14 @@
+import '../ADT/trie.dart';
 import '../models.dart';
 
 class PassengerController {
-  static Map<String, Passenger> passengers = {};
+  static Trie<Passenger> passengers = Trie();
 
-  static void addPassenger(Passenger passenger) {
-    if (passengerIsExist(passenger.nationalCode)) {
-      return;
-    }
-    passengers[passenger.nationalCode] = passenger;
-  }
+  static void addPassenger(Passenger passenger) =>
+      passengers.add(passenger.nationalCode, passenger);
 
-  static getPassenger(String nationalCode) => passengers[nationalCode];
+  static getPassenger(String nationalCode) => passengers.find(nationalCode);
 
   static bool passengerIsExist(String nationalCode) =>
-      passengers.containsKey(nationalCode);
+      passengers.find(nationalCode) != null;
 }

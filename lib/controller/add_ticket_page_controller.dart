@@ -51,9 +51,8 @@ class AddTicketPageController extends GetxController {
   }
 
   void addPassenger() {
-    Passenger passenger;
-    if (PassengerController.passengerIsExist(nationalCode!)) {
-      passenger = PassengerController.getPassenger(nationalCode!);
+    Passenger? passenger = PassengerController.getPassenger(nationalCode!);
+    if (passenger != null) {
       if (!passenger.phones.contains(phone)) {
         passenger.addPhone(phone as int);
       }
