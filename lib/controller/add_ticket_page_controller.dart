@@ -1,10 +1,10 @@
 import 'package:airplane/controller/passenger_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../models.dart';
 
 class AddTicketPageController extends GetxController {
+// flight  information
   Flight? flight;
   Airplane? airplane;
   TimeOfDay? departTime;
@@ -14,7 +14,7 @@ class AddTicketPageController extends GetxController {
   City? destinationCity;
   int? cap;
   int? soldedTicket;
-
+//passenger information
   String? firstName;
   String? lastName;
   String? nationalCode;
@@ -52,6 +52,7 @@ class AddTicketPageController extends GetxController {
 
   void addPassenger() {
     Passenger? passenger = PassengerController.getPassenger(nationalCode!);
+    //check if passenger exist
     if (passenger != null) {
       if (!passenger.phones.contains(phone)) {
         passenger.addPhone(phone as int);
