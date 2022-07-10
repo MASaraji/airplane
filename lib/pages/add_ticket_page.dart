@@ -273,7 +273,11 @@ class AddTicketPage extends GetView<AddTicketPageController> {
               } else if (controller.phone == null) {
                 Snackbar.snackbarError("Phone is emptry");
               } else {
-                controller.addPassenger();
+                bool success = controller.addPassenger();
+                if (success == false) {
+                  Snackbar.snackbarError(
+                      "Passenger already reserved a ticket.");
+                }
                 Snackbar.snackbarSuccess("Ticket added successfully.");
               }
             },

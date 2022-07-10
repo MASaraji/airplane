@@ -2,6 +2,7 @@ import 'package:airplane/controller/passenger_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../models.dart';
+import '../widgets/snackbar.dart';
 
 class AddTicketPageController extends GetxController {
 // flight  information
@@ -50,14 +51,13 @@ class AddTicketPageController extends GetxController {
     update();
   }
 
-  void addPassenger() {
+  bool addPassenger() {
     Passenger? passenger = PassengerController.getPassenger(nationalCode!);
-    //check if passenger exist
     if (passenger != null) {
       passenger.addPhone(phone as int);
-      //if (!passenger.phones.contains(phone)) {
-      //  passenger.addPhone(phone as int);
-      // }
+      if (passenger.flightExist(flight!.flightName)) {
+        return false;
+      }
     } else {
       passenger = Passenger(
         name: "$firstName $lastName",
@@ -66,8 +66,10 @@ class AddTicketPageController extends GetxController {
       passenger.addPhone(phone!);
       PassengerController.addPassenger(passenger);
     }
+    passenger.addFlight(flight!);
     Ticket ticket = Ticket(passenger: passenger, price: price as double);
     flight!.addTicket(ticket);
     clearBoxes();
+    return true;
   }
 }

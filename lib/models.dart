@@ -2,6 +2,7 @@ import 'package:airplane/ADT/array.dart';
 import 'package:airplane/ADT/hash_table.dart';
 import 'package:airplane/ADT/linkedlist.dart';
 import 'package:airplane/ADT/trie.dart';
+import 'package:airplane/pages/add_airplane_page.dart';
 import 'package:flutter/material.dart';
 
 class Flight {
@@ -113,7 +114,9 @@ class Passenger {
   final String name;
   final String nationalCode;
   Trie<int> phones = Trie();
+  HashTable<String, Flight> flights = HashTable();
   Passenger({required this.name, required this.nationalCode});
-
+  void addFlight(Flight flight) => flights.addUnique(flight.flightName, flight);
+  bool flightExist(String flight) => flights.get(flight) != null;
   void addPhone(int phone) => phones.add(phone.toString(), phone);
 }
