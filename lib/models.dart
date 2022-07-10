@@ -93,7 +93,6 @@ class Month {
 }
 
 class Day {
-   
   int day;
   HashTable<String, Flight> flights = HashTable();
 
