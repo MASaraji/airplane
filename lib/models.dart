@@ -64,11 +64,12 @@ class Year {
   }
   Month getMonth(int num) => months.getIndex(--num) as Month;
 
-  List getFlights() {
-    List list = [];
+  Array getFlights() {
+    Array list = Array(0);
     for (Month month in months.traverse()) {
       for (Day day in month.getDays().traverse()) {
-        list += day.getFlights();
+        list.expand(day.getFlights());
+        //list += day.getFlights();
       }
     }
     return list;
@@ -92,14 +93,17 @@ class Month {
 }
 
 class Day {
+   
   int day;
-  List flights = [];
+  HashTable<String, Flight> flights = HashTable();
 
   Day({required this.day});
 
-  void addFlight(Flight flight) => flights.add(flight);
+  void addFlight(Flight flight) =>
+      flights.addUnique(flight.airplane.name, flight);
 
-  List getFlights() => flights;
+  Flight? getFlight(String airplaneName) => flights.get(airplaneName);
+  Array getFlights() => flights.getValues();
 }
 
 class Discount {

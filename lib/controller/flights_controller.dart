@@ -19,6 +19,7 @@ class FlightsController {
       month.addDay(day);
     }
     day.addFlight(flight);
+    day.getFlights().represent();
     flight.airplane.addFlight(flight);
   }
 
@@ -32,16 +33,21 @@ class FlightsController {
     if (day == null) {
       return [];
     }
-    return day.flights;
+    return day.getFlights().toList();
   }
 
   static List getFlights() {
-    List list = [];
+    Array list = Array(0);
     Array years = flights.getValues();
-    for (var year in years.traverse()) {
-      list += year.getFlights();
+    for (Year year in years.traverse()) {
+      print("1");
+      year.getFlights().represent();
+      list.expand(year.getFlights());
+      //list += year.getFlights();
+
     }
-    return list;
+    list.represent();
+    return list.toList();
   }
 
   static int getFlightNum() => lastAddedAirplane++;

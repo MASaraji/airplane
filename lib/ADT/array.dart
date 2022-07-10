@@ -1,7 +1,7 @@
 class Array<E> {
-  final int size;
+  int size;
   final E? defVar; // default value to fill array
-  late final List<E?> array = List.filled(size.toUnsigned(64), defVar);
+  late List<E?> array = List.filled(size.toUnsigned(64), defVar);
 
   Array(this.size, {this.defVar});
 
@@ -24,5 +24,17 @@ class Array<E> {
     for (int i = 0; i < size; i++) {
       yield getIndex(i) as E;
     }
+  }
+
+  void expand(Array<E?> arr) {
+    size += arr.size;
+    Array<E?> tempArray = Array(size);
+    for (int i = 0; i < array.length; i++) {
+      tempArray.add(i, array[i]);
+    }
+    for (int i = array.length; i < size; i++) {
+      tempArray.add(i, arr.getIndex(i));
+    }
+    array = tempArray.toList();
   }
 }

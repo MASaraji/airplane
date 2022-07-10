@@ -23,6 +23,7 @@ class FlightsPage extends GetView<FlightsPageController> {
           itemCount: flights.length,
           itemBuilder: (ctx, int index) {
             Flight flight = flights[index];
+
             return ItemCard(
               onTap: () => Get.dialog(flightInformationDialog(flight)),
               trailing:
