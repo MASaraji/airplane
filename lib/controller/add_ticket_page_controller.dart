@@ -22,14 +22,14 @@ class AddTicketPageController extends GetxController {
 
   void setFlight(Flight flight_) {
     flight = flight_;
-    airplane = flight!.airplane!;
+    airplane = flight!.airplane;
     departTime = flight!.departureTime;
     arrivalTime = flight!.landingTime;
     price = flight!.price;
     originCity = flight!.originCity!;
     destinationCity = flight!.destinationCity!;
-    cap = flight!.airplane!.capacity;
-    soldedTicket = flight!.tickets.length;
+    cap = flight!.airplane.capacity;
+    soldedTicket = flight?.numberOfTicket;
     update();
   }
 
@@ -54,9 +54,10 @@ class AddTicketPageController extends GetxController {
     Passenger? passenger = PassengerController.getPassenger(nationalCode!);
     //check if passenger exist
     if (passenger != null) {
-      if (!passenger.phones.contains(phone)) {
-        passenger.addPhone(phone as int);
-      }
+      passenger.addPhone(phone as int);
+      //if (!passenger.phones.contains(phone)) {
+      //  passenger.addPhone(phone as int);
+      // }
     } else {
       passenger = Passenger(
         name: "$firstName $lastName",

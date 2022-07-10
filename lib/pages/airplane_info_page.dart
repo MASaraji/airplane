@@ -11,7 +11,7 @@ class AirplaneInfoPage extends StatelessWidget {
   const AirplaneInfoPage({Key? key, required this.airplane}) : super(key: key);
 
   Widget itemsList() {
-    List flights = airplane.flights;
+    Iterable flights = airplane.flights.traverse();
     return Expanded(
       child: Card(
         child: ListView.builder(
@@ -19,7 +19,7 @@ class AirplaneInfoPage extends StatelessWidget {
           primary: false,
           itemCount: flights.length,
           itemBuilder: (ctx, int index) {
-            Flight flight = flights[index];
+            Flight flight = flights.elementAt(index);
             return ItemCard(
               onTap: () => Get.dialog(flightInformationDialog(flight)),
               trailing:

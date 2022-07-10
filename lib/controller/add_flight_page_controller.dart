@@ -58,13 +58,13 @@ class AddFlightPageController extends GetxController {
         landingTime: arrivalTime,
         flightName: flightName,
         destinationCity: destinationCity,
-        airplane: airplane,
+        airplane: airplane as Airplane,
         departDate: departDate_,
         departureTime: departTime);
     FlightsController.addFlight(departDate_, flight);
   }
 
-  List getAirplanes() => AirplaneController.airplanes.values.toList();
+  List getAirplanes() => AirplaneController.airplanes.getValues().toList();
 
   List getCities() => CitiesController.getCities();
 }

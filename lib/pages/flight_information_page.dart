@@ -1,3 +1,4 @@
+import 'package:airplane/ADT/array.dart';
 import "package:flutter/material.dart";
 
 import '../models.dart';
@@ -11,14 +12,14 @@ class FlightInformationPage extends StatelessWidget {
       : super(key: key);
 
   Widget itemsList() {
-    List tickets = flight.tickets;
+    Array tickets = flight.tickets;
     return Card(
       child: ListView.builder(
         padding: const EdgeInsets.all(10),
         primary: false,
-        itemCount: tickets.length,
+        itemCount: flight.numberOfTicket,
         itemBuilder: (ctx, int index) {
-          Ticket ticket = tickets[index];
+          Ticket ticket = tickets.getIndex(index);
           return ItemCard(
               title: ticket.passenger.name,
               subtitle: ticket.passenger.nationalCode);
@@ -55,7 +56,7 @@ class FlightInformationPage extends StatelessWidget {
   Widget flightInformationAirplaneBox() {
     return TextField(
         readOnly: true,
-        controller: TextEditingController(text: flight.airplane?.name),
+        controller: TextEditingController(text: flight.airplane.name),
         decoration: const InputDecoration(
             border: OutlineInputBorder(), label: Text("Airplane")));
   }

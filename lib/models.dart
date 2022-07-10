@@ -1,3 +1,7 @@
+import 'package:airplane/ADT/array.dart';
+import 'package:airplane/ADT/hash_table.dart';
+import 'package:airplane/ADT/linkedlist.dart';
+import 'package:airplane/ADT/trie.dart';
 import 'package:flutter/material.dart';
 
 class Flight {
@@ -6,8 +10,9 @@ class Flight {
   final String departDate;
   final TimeOfDay departureTime;
   final TimeOfDay landingTime;
-  final Airplane? airplane;
-  late List<Ticket?> tickets = [];
+  final Airplane airplane;
+  int numberOfTicket = 0;
+  late Array<Ticket> tickets = Array(airplane.capacity);
   final City? originCity;
   final City? destinationCity;
   Flight(
@@ -21,7 +26,8 @@ class Flight {
       required this.destinationCity});
 
   void addTicket(Ticket ticket) {
-    tickets.add(ticket);
+    tickets.add(numberOfTicket, ticket);
+    numberOfTicket++;
   }
 }
 
@@ -30,17 +36,13 @@ class Airplane {
   final String name;
   final String model;
   final int capacity;
-  List<Flight> flights = [];
+  LinkedList<Flight> flights = LinkedList();
 
   Airplane({required this.name, required this.model, required this.capacity});
 
-  void addToProfit(double amount) {
-    profit += amount;
-  }
+  void addToProfit(double amount) => profit += amount;
 
-  void addFlight(Flight flight) {
-    flights.add(flight);
-  }
+  void addFlight(Flight flight) => flights.add(flight);
 }
 
 class City {
@@ -51,9 +53,13 @@ class City {
 
 class Year {
   final int year;
-  List<Month> months = [for (int i = 1; i <= 12; i++) Month(month: i)];
+  Array<Month> months = Array(12);
 
-  Year({required this.year});
+  Year({required this.year}) {
+    for (int i = 0; i < 12; i++) {
+      months.add(i, Month(month: i + 1));
+    }
+  }
 }
 
 class Ticket {
@@ -64,7 +70,7 @@ class Ticket {
 
 class Month {
   final int month;
-  List day = [];
+  HashTable days = HashTable(threshold: 3, arrayLength: 11);
   Month({required this.month});
 }
 
@@ -72,23 +78,16 @@ class Discount {
   double total = 0;
   double percent = 0;
 
-  void addToTotal(double amount) {
-    total += amount;
-  }
-
-  void changePercent(double percent_) {
-    percent = percent_;
-  }
+  void addToTotal(double amount) => total += amount;
+  void changePercent(double percent_) => percent = percent_;
 }
 
 class Passenger {
   Discount discount = Discount();
   final String name;
   final String nationalCode;
-  List<int> phones = [];
+  Trie<int> phones = Trie();
   Passenger({required this.name, required this.nationalCode});
 
-  void addPhone(int phone) {
-    phones.add(phone);
-  }
+  void addPhone(int phone) => phones.add(phone.toString(), phone);
 }

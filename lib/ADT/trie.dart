@@ -30,6 +30,7 @@ class Trie<E> {
 class Node<E> {
   E? value;
   String? data;
+
   List<Node> children = [];
   Node({required this.data, this.value});
 
