@@ -19,6 +19,7 @@ class AddTicketPageController extends GetxController {
   String? lastName;
   String? nationalCode;
   int? phone;
+  Passenger? passenger;
 
   void setFlight(Flight flight_) {
     flight = flight_;
@@ -47,6 +48,7 @@ class AddTicketPageController extends GetxController {
     lastName = null;
     nationalCode = null;
     phone = null;
+    passenger = null;
     update();
   }
 
@@ -54,10 +56,10 @@ class AddTicketPageController extends GetxController {
     if (flight!.numberOfTicket >= flight!.airplane.capacity) {
       return "All ticket are solded";
     }
-    Passenger? passenger = PassengerController.getPassenger(nationalCode!);
+    passenger = PassengerController.getPassenger(nationalCode!);
     if (passenger != null) {
-      passenger.addPhone(phone as int);
-      if (passenger.flightExist(flight!.flightName)) {
+      passenger!.addPhone(phone as int);
+      if (passenger!.flightExist(flight!.flightName)) {
         return "Passenger already reserved a ticket.";
       }
     } else {
@@ -65,13 +67,20 @@ class AddTicketPageController extends GetxController {
         name: "$firstName $lastName",
         nationalCode: nationalCode as String,
       );
-      passenger.addPhone(phone!);
-      PassengerController.addPassenger(passenger);
+      passenger!.addPhone(phone!);
     }
-    passenger.addFlight(flight!);
-    Ticket ticket = Ticket(passenger: passenger, price: price as double);
-    flight!.addTicket(ticket);
-    clearBoxes();
     return null;
+  }
+
+  void addTicket() {
+    PassengerController.addPassenger(passenger as Passenger);
+    passenger!.addFlight(flight!);
+    Ticket ticket =
+        Ticket(passenger: passenger as Passenger, price: price as double);
+    flight!.addTicket(ticket);
+    double priceToPay = price! - (price! * (passenger!.discount.percent / 100));
+    flight!.airplane.addToProfit(priceToPay);
+    passenger!.discount.addToTotal(priceToPay);
+    clearBoxes();
   }
 }

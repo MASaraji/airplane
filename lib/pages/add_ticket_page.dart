@@ -8,7 +8,57 @@ import '../models.dart';
 import '../widgets/texts.dart';
 
 class AddTicketPage extends GetView<AddTicketPageController> {
-  const AddTicketPage({Key? key}) : super(key: key);
+  AddTicketPage({Key? key}) : super(key: key);
+
+  Widget totalPrice(Discount discount) {
+    return TextField(
+        readOnly: true,
+        controller: TextEditingController(text: discount.total.toString()),
+        decoration: const InputDecoration(
+            border: OutlineInputBorder(), label: Text("total")));
+  }
+
+  var percent = 0.0.obs;
+  Widget percentSlider(Discount discount) {
+    percent.value = discount.percent;
+    return Slider(
+        label: percent.toString(),
+        onChanged: (value) {
+          discount.percent = value;
+          percent.value = value;
+        },
+        min: 0.0,
+        divisions: 100,
+        max: 100.0,
+        value: percent.value);
+  }
+
+  Widget discountDialog(Passenger passenger) {
+    return AlertDialog(
+        actions: [
+          SizedBox(
+            height: 50,
+            width: 100,
+            child: ElevatedButton(
+                onPressed: () {
+                  controller.addTicket();
+                  Snackbar.snackbarSuccess("Ticket added successfully.");
+                  Get.offAndToNamed("/mainPage");
+                },
+                child: Text("add")),
+          )
+        ],
+        content: Container(
+            padding: const EdgeInsets.all(20),
+            height: 600,
+            width: 1200,
+            child: Column(
+              children: [
+                totalPrice(passenger.discount),
+                Obx(() => percentSlider(passenger.discount))
+              ],
+            )));
+  }
 
   Widget flightsDropDown() {
     List flights = FlightsController.getFlights();
@@ -277,7 +327,10 @@ class AddTicketPage extends GetView<AddTicketPageController> {
                 if (message != null) {
                   Snackbar.snackbarError(message);
                 }
-                Snackbar.snackbarSuccess("Ticket added successfully.");
+                Get.dialog(
+                  discountDialog(controller.passenger as Passenger),
+                );
+                // Snackbar.snackbarSuccess("Ticket added successfully.");
               }
             },
             child: const Text("Reserve")));
