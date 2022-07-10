@@ -15,6 +15,7 @@ class Flight {
   int numberOfTicket = 0;
   late Array<Ticket> tickets = Array(airplane.capacity);
   final City? originCity;
+  double occupacyRatio = 0;
   final City? destinationCity;
   Flight(
       {required this.flightName,
@@ -29,6 +30,7 @@ class Flight {
   void addTicket(Ticket ticket) {
     tickets.add(numberOfTicket, ticket);
     numberOfTicket++;
+    occupacyRatio = numberOfTicket / airplane.capacity;
   }
 }
 

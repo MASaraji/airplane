@@ -2,7 +2,6 @@ import 'package:airplane/controller/passenger_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../models.dart';
-import '../widgets/snackbar.dart';
 
 class AddTicketPageController extends GetxController {
 // flight  information
@@ -51,12 +50,15 @@ class AddTicketPageController extends GetxController {
     update();
   }
 
-  bool addPassenger() {
+  String? addPassenger() {
+    if (flight!.numberOfTicket >= flight!.airplane.capacity) {
+      return "All ticket are solded";
+    }
     Passenger? passenger = PassengerController.getPassenger(nationalCode!);
     if (passenger != null) {
       passenger.addPhone(phone as int);
       if (passenger.flightExist(flight!.flightName)) {
-        return false;
+        return "Passenger already reserved a ticket.";
       }
     } else {
       passenger = Passenger(
@@ -70,6 +72,6 @@ class AddTicketPageController extends GetxController {
     Ticket ticket = Ticket(passenger: passenger, price: price as double);
     flight!.addTicket(ticket);
     clearBoxes();
-    return true;
+    return null;
   }
 }

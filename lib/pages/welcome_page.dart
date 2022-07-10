@@ -1,3 +1,4 @@
+import 'package:airplane/test_object.dart';
 import "package:flutter/material.dart";
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
@@ -15,7 +16,10 @@ class WelcomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(const Duration(seconds: 3), () => Get.offNamed("/mainPage"));
+    Future.delayed(const Duration(seconds: 3), () {
+      TestObject testObject = TestObject();
+      Get.offNamed("/mainPage");
+    });
 
     return Scaffold(
         body: Container(

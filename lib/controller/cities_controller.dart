@@ -4,10 +4,6 @@ import '../models.dart';
 
 class CitiesController {
   static HashTable<String, City> cities = HashTable();
-  //static var cities = {
-  //  "Tehran": City(name: "Tehran"),
-  //  "Mashhad": City(name: "Mashhad")
-  //};
 
   static bool addCity(String cityName) {
     if (cities.containsKey(cityName)) {
@@ -15,11 +11,8 @@ class CitiesController {
     }
     City city = City(name: cityName);
     cities.addUnique(cityName, city);
-    //cities[cityName] = city;
     return true;
   }
-
-  // static City getCity(int index) => cities.values.toList()[index];
 
   static int getNumCity() => cities.length();
 
