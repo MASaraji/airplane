@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import "package:flutter/material.dart";
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../models.dart';
 import '../widgets/item_card.dart';
@@ -25,7 +26,7 @@ class AirplaneInfoPage extends StatelessWidget {
               trailing:
                   "${flight.originCity!.name} to ${flight.destinationCity!.name}",
               title: flight.flightName,
-              subtitle: flight.departDate,
+              subtitle: DateFormat(" EEEE, MM, yyyy").format(flight.departDate),
             );
           },
         ),

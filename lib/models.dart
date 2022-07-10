@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 class Flight {
   final String flightName;
   final double price;
-  final String departDate;
+  final DateTime departDate;
   final TimeOfDay departureTime;
   final TimeOfDay landingTime;
   final Airplane airplane;
@@ -60,6 +60,17 @@ class Year {
       months.add(i, Month(month: i + 1));
     }
   }
+  Month getMonth(int num) => months.getIndex(--num) as Month;
+
+  List getFlights() {
+    List list = [];
+    for (Month month in months.traverse()) {
+      for (Day day in month.getDays().traverse()) {
+        list += day.getFlights();
+      }
+    }
+    return list;
+  }
 }
 
 class Ticket {
@@ -70,8 +81,23 @@ class Ticket {
 
 class Month {
   final int month;
-  HashTable days = HashTable(threshold: 3, arrayLength: 11);
+  HashTable<int, Day> days = HashTable(threshold: 3, arrayLength: 11);
   Month({required this.month});
+
+  addDay(Day day) => days.addUnique(day.day, day);
+  getDays() => days.getValues();
+  getDay(int day) => days.get(day);
+}
+
+class Day {
+  int day;
+  List flights = [];
+
+  Day({required this.day});
+
+  void addFlight(Flight flight) => flights.add(flight);
+
+  List getFlights() => flights;
 }
 
 class Discount {

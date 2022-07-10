@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import "package:airplane/controller/flights_controller.dart";
-import 'package:intl/intl.dart';
 import '../models.dart';
 import 'airplane_controller.dart';
 import 'cities_controller.dart';
@@ -51,7 +50,7 @@ class AddFlightPageController extends GetxController {
   }
 
   void addFlight() {
-    String departDate_ = DateFormat(" EEEE, MM, yyyy").format(departDate);
+    //String departDate_ = DateFormat(" EEEE, MM, yyyy").format(departDate);
     Flight flight = Flight(
         price: price,
         originCity: originCity,
@@ -59,9 +58,9 @@ class AddFlightPageController extends GetxController {
         flightName: flightName,
         destinationCity: destinationCity,
         airplane: airplane as Airplane,
-        departDate: departDate_,
+        departDate: departDate,
         departureTime: departTime);
-    FlightsController.addFlight(departDate_, flight);
+    FlightsController.addFlight(departDate, flight);
   }
 
   List getAirplanes() => AirplaneController.airplanes.getValues().toList();

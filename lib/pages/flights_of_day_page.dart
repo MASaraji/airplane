@@ -3,6 +3,7 @@ import 'package:airplane/widgets/item_card.dart';
 import 'package:airplane/widgets/toolbar.dart';
 import "package:flutter/material.dart";
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import '../models.dart';
 import '../widgets/texts.dart';
 import 'flight_information_page.dart';
@@ -25,7 +26,7 @@ class FlightsOfDayPage extends GetView<FlightsOfDayPageController> {
               trailing:
                   "${flight.originCity!.name} => ${flight.destinationCity!.name}",
               title: flight.flightName,
-              subtitle: flight.departDate,
+              subtitle: DateFormat(" EEEE, MM, yyyy").format(flight.departDate),
             );
           },
         ),
