@@ -120,7 +120,7 @@ class Passenger {
   Trie<int> phones = Trie();
   HashTable<String, Flight> flights = HashTable();
   Passenger({required this.name, required this.nationalCode});
-
+  List getFlights() => flights.getValues().toList();
   void addFlight(Flight flight) => flights.addUnique(flight.flightName, flight);
   bool flightExist(String flight) => flights.get(flight) != null;
   void addPhone(int phone) => phones.add(phone.toString(), phone);

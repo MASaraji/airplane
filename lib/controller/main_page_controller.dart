@@ -1,5 +1,6 @@
 import 'package:airplane/pages/add_ticket_page.dart';
 import 'package:airplane/pages/airplanes_page.dart';
+import 'package:airplane/pages/find_same_flight.dart';
 import 'package:airplane/pages/flights_of_day_page.dart';
 import 'package:airplane/pages/flights_page.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,7 @@ class MainPageController extends GetxController {
     const AirplanesPage(), //page 2
     const CitiesPage(), //page 3
     AddTicketPage(), //page 4
-    const SingleChildScrollView()
+    FindTwoPassengerPage() //page5
   ];
 
   final List menuItems = [
