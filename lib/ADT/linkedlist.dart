@@ -1,3 +1,5 @@
+import 'package:airplane/ADT/array.dart';
+
 class LinkedList<E> {
   Node? head;
   Node? tail;
@@ -13,6 +15,18 @@ class LinkedList<E> {
       tail = node;
     }
     size++;
+  }
+
+  Array toArray() {
+    Array<E> array = Array(size);
+    int index = 0;
+    Node? temp = head;
+    while (temp != null) {
+      array.add(index, temp.data);
+      temp = temp.next;
+      index++;
+    }
+    return array;
   }
 
   void addFirst(E? data) {

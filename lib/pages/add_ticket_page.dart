@@ -34,28 +34,26 @@ class AddTicketPage extends GetView<AddTicketPageController> {
   }
 
   Widget discountDialog(Passenger passenger) {
-    return AlertDialog(
-        actions: [
-          SizedBox(
-            height: 50,
-            width: 100,
-            child: ElevatedButton(
-                onPressed: () {
-                  controller.addTicket();
-                  Snackbar.snackbarSuccess("Ticket added successfully.");
-                  Get.offAndToNamed("/mainPage");
-                },
-                child: Text("add")),
-          )
-        ],
-        content: Container(
+    return Dialog(
+        child: Container(
             padding: const EdgeInsets.all(20),
-            height: 600,
-            width: 1200,
+            height: 300,
+            width: 600,
             child: Column(
               children: [
                 totalPrice(passenger.discount),
-                Obx(() => percentSlider(passenger.discount))
+                Obx(() => percentSlider(passenger.discount)),
+                SizedBox(
+                  height: 50,
+                  width: 100,
+                  child: ElevatedButton(
+                      onPressed: () {
+                        controller.addTicket();
+                        Snackbar.snackbarSuccess("Ticket added successfully.");
+                        Get.offAndToNamed("/mainPage");
+                      },
+                      child: const Text("add")),
+                )
               ],
             )));
   }

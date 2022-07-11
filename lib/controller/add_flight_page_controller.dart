@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+//import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import "package:airplane/controller/flights_controller.dart";
 import '../models.dart';
 import 'airplane_controller.dart';
 import 'cities_controller.dart';
+import "../ADT/stack.dart" as stack;
 
 class AddFlightPageController extends GetxController {
   late String flightName = FlightsController.getFlightNum().toString();
@@ -49,6 +50,21 @@ class AddFlightPageController extends GetxController {
     update();
   }
 
+  List getAirplanes() {
+    var airplanes = AirplaneController.airplanes.getValues();
+    stack.Stack specifiedAirplanes = stack.Stack();
+    Day? day = FlightsController.getDay(departDate);
+    if (day == null) {
+      return airplanes.toList();
+    }
+    for (Airplane airplane in airplanes.traverse()) {
+      if (day.getFlight(airplane.name) == null) {
+        specifiedAirplanes.push(airplane);
+      }
+    }
+    return specifiedAirplanes.toArray().toList();
+  }
+
   void addFlight() {
     //String departDate_ = DateFormat(" EEEE, MM, yyyy").format(departDate);
     Flight flight = Flight(
@@ -62,8 +78,6 @@ class AddFlightPageController extends GetxController {
         departureTime: departTime);
     FlightsController.addFlight(departDate, flight);
   }
-
-  List getAirplanes() => AirplaneController.airplanes.getValues().toList();
 
   List getCities() => CitiesController.getCities();
 }

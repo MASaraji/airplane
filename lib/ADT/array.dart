@@ -26,15 +26,16 @@ class Array<E> {
     }
   }
 
-  void expand(Array<E?> arr) {
-    size += arr.size;
-    Array<E?> tempArray = Array(size);
+  void expand(Array<E> arr) {
+    Array<E?> tempArray = Array(size + arr.size);
+
     for (int i = 0; i < array.length; i++) {
       tempArray.add(i, array[i]);
     }
-    for (int i = array.length; i < size; i++) {
-      tempArray.add(i, arr.getIndex(i));
+    for (int i = 0; i < arr.size; i++) {
+      tempArray.add(array.length + i, arr.getIndex(i));
     }
+    size = arr.size + size;
     array = tempArray.toList();
   }
 }

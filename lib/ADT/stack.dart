@@ -1,3 +1,4 @@
+import 'package:airplane/ADT/array.dart';
 import 'package:airplane/ADT/linkedlist.dart';
 
 class Stack<E> {
@@ -19,6 +20,9 @@ class Stack<E> {
     return temp;
   }
 
+  Array toArray() => linkedList.toArray();
+
   void representAll() => linkedList.representAll();
+
   int length() => size;
 }

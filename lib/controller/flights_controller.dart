@@ -23,6 +23,19 @@ class FlightsController {
     flight.airplane.addFlight(flight);
   }
 
+  static getDay(DateTime date) {
+    Year? year = flights.get(date.year);
+    if (year == null) {
+      return null;
+    }
+    Month month = year.getMonth(date.month);
+    Day? day = month.getDay(date.day);
+    if (day == null) {
+      return null;
+    }
+    return day;
+  }
+
   static List getFlightByDate(DateTime date) {
     Year? year = flights.get(date.year);
     if (year == null) {
@@ -40,7 +53,6 @@ class FlightsController {
     Array list = Array(0);
     Array years = flights.getValues();
     for (Year year in years.traverse()) {
-      print("1");
       year.getFlights().represent();
       list.expand(year.getFlights());
       //list += year.getFlights();
